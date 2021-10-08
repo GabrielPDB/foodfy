@@ -5,11 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Foodfy</title>
+
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <header>
+    <header class="container">
       <div class="logo">
-        <img src="./assets/logo.png" alt="Logo Foodfy" />
+        <a href="./index.html">
+          <img src="./assets/logo.png" alt="Logo Foodfy" />
+        </a>
       </div>
       <div class="links">
         <div class="link">
@@ -21,7 +25,7 @@
       </div>
     </header>
 
-    <section class="banner">
+    <section class="banner container">
       <div class="banner-content">
         <h1>As melhores receitas</h1>
         <p>
@@ -34,7 +38,7 @@
       </div>
     </section>
 
-    <section class="revenues">
+    <section class="revenues container">
       <h2>Mais acessadas</h2>
       <div class="cards">
         <div class="card">
@@ -102,5 +106,13 @@
     <footer>
       <h6>Todos direitos reservados, receitas Foodfy.</h6>
     </footer>
+
+    <div class="modal-overlay">
+      <div class="modal">
+        <div class="card"></div>
+      </div>
+    </div>
+
+    <script src="./scripts.js"></script>
   </body>
 </html>
