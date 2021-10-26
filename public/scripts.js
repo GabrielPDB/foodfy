@@ -16,5 +16,17 @@ function getRecipe() {
   })
 }
 
+function showHideContentOfRecipe(info) {
+  const content = document.querySelector(`.${info} .content`)
+  const button = document.querySelector(`.${info} button`)
+
+  content.classList.toggle('hide')
+  if (button.innerHTML == 'Mostrar') {
+    button.innerHTML = 'Esconder'
+  } else if (button.innerHTML == 'Esconder') {
+    button.innerHTML = 'Mostrar'
+  }
+}
+
 setPageFocusOnHeader()
 getRecipe()

@@ -231,18 +231,54 @@ footer h6 {
 
 .recipe-header img {
   border-radius: 1rem;
-  margin-bottom: 50px;
 }
 
-.recipe-header h1 {
+.recipe-header .title {
+  margin: 50px 0;
+}
+
+.recipe-header .title h1 {
   font-size: 2.25rem;
   font-weight: bold;
   color: #111111;
   margin-bottom: 0.25rem;
 }
 
-.recipe-header h3 {
+.recipe-header .title h3 {
   font-size: 20px;
   color: #777777;
   font-weight: 400;
+}
+
+.recipe-infos .title {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  line-height: 34px;
+  margin: 2.5rem 0 1rem 0;
+}
+
+.recipe-infos .title h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #111111;
+}
+
+.recipe-infos .title button {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #999999;
+  background: none;
+  cursor: pointer;
+}
+
+.recipe-infos .content {
+  font-size: 1.125rem;
+  line-height: 28px;
+  color: #444444;
+  list-style-position: inside;
+}
+
+.recipe-infos .content.hide {
+  display: none;
 }
