@@ -2,6 +2,7 @@ const express = require('express')
 const nunjucks = require('nunjucks')
 
 const server = express()
+const revenues = require('./data')
 
 server.use(express.static('public'))
 
@@ -14,7 +15,9 @@ nunjucks.configure('views', {
 })
 
 server.get('/', (req, res) => {
-  return res.render('index')
+  const firstSixRevenues = revenues.slice(0, 6)
+
+  return res.render('home', { revenues: firstSixRevenues })
 })
 
 server.get('/about', (req, res) => {
@@ -22,7 +25,7 @@ server.get('/about', (req, res) => {
 })
 
 server.get('/revenue', (req, res) => {
-  return res.render('revenue')
+  return res.render('revenue', { revenues })
 })
 
 server.listen(4000, () => {
