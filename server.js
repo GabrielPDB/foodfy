@@ -31,7 +31,7 @@ server.get('/recipes', (req, res) => {
 server.get('/recipes/:index', (req, res) => {
   const recipeIndex = req.params.index
 
-  return res.send(recipes[recipeIndex])
+  return res.render('info', { recipe: recipes[recipeIndex] })
 })
 
 server.listen(4000, () => {
