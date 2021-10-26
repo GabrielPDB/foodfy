@@ -24,8 +24,6 @@ const Modal = {
   },
   closeModalWhenClickOutsideCard: () => {
     document.addEventListener('click', e => {
-      console.log(e.path[0].className)
-
       if (e.path[0].className === 'modal') {
         openCloseModal()
       }

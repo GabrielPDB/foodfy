@@ -213,9 +213,11 @@ footer h6 {
   font-size: 24px;
   color: var(--font-color);
   margin-bottom: 5px;
+  font-weight: normal;
 }
 
 .modal .card .card-content h4 {
   font-size: 18px;
   color: #777777;
+  font-weight: normal;
 }
