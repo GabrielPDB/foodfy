@@ -14,7 +14,7 @@ nunjucks.configure('views', {
 })
 
 server.get('/', (req, res) => {
-  return res.render('index')
+  return res.render('revenue')
 })
 
 server.listen(4000, () => {
