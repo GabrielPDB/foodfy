@@ -6,31 +6,4 @@ function setPageFocusOnHeader() {
   }
 }
 
-function openCloseModal() {
-  document.querySelector('.modal-overlay').classList.toggle('active')
-}
-
-const Modal = {
-  cards: document.querySelectorAll('.cards .card'),
-  addEventListenerOnCards: () => {
-    for (let card of Modal.cards) {
-      card.addEventListener('click', () => {
-        document.querySelector('.modal-overlay .modal .card').innerHTML =
-          card.innerHTML
-
-        openCloseModal()
-      })
-    }
-  },
-  closeModalWhenClickOutsideCard: () => {
-    document.addEventListener('click', e => {
-      if (e.path[0].className === 'modal') {
-        openCloseModal()
-      }
-    })
-  }
-}
-
 setPageFocusOnHeader()
-Modal.addEventListenerOnCards()
-Modal.closeModalWhenClickOutsideCard()
