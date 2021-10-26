@@ -11,17 +11,17 @@
       <img src="/assets/chef.png" alt="Chef"/>
     </div>
   </section>
-  <section class="revenues container">
+  <section class="recipes container">
     <h2>Mais acessadas</h2>
     <div class="cards">
-      {% for revenue in revenues %}
+      {% for recipe in recipes %}
         <div class="card">
           <div class="card-image">
-            <img src="{{ revenue.image }}" alt="{{ revenue.title }}"/>
+            <img src="{{ recipe.image }}" alt="{{ recipe.title }}"/>
           </div>
           <div class="card-content">
-            <h3>{{ revenue.title }}</h3>
-            <h4>por {{ revenue.author }}</h4>
+            <h3>{{ recipe.title }}</h3>
+            <h4>por {{ recipe.author }}</h4>
           </div>
         </div>
       {% endfor %}
