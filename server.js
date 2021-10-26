@@ -14,6 +14,14 @@ nunjucks.configure('views', {
 })
 
 server.get('/', (req, res) => {
+  return res.render('index')
+})
+
+server.get('/about', (req, res) => {
+  return res.render('about')
+})
+
+server.get('/revenue', (req, res) => {
   return res.render('revenue')
 })
 
