@@ -6,4 +6,15 @@ function setPageFocusOnHeader() {
   }
 }
 
+function getRecipe() {
+  const cards = document.querySelectorAll('.card')
+
+  cards.forEach((card, index) => {
+    card.addEventListener('click', () => {
+      window.location.href = `/recipes/${index}`
+    })
+  })
+}
+
 setPageFocusOnHeader()
+getRecipe()

@@ -82,51 +82,51 @@ header .link.active {
   bottom: 0;
 }
 
-/* REVENUES */
+/* recipeS */
 
-.revenues {
+.recipes {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.revenues h2 {
+.recipes h2 {
   color: var(--font-color);
   font-size: 1.5rem;
   font-weight: bold;
 }
 
-.revenues .cards {
+.recipes .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
 }
 
-.revenues .cards .card {
+.recipes .cards .card {
   display: flex;
   flex-direction: column;
   gap: 10px;
   cursor: pointer;
 }
 
-.revenues .cards .card .card-image img {
+.recipes .cards .card .card-image img {
   width: 100%;
   border-radius: 1rem;
 }
 
-.revenues .cards .card .card-content {
+.recipes .cards .card .card-content {
   display: flex;
   flex-direction: column;
   gap: 5px;
   padding: 10px 0;
 }
 
-.revenues .cards .card .card-content h3 {
+.recipes .cards .card .card-content h3 {
   font-size: 18px;
   color: var(--font-color);
 }
 
-.revenues .cards .card .card-content h4 {
+.recipes .cards .card .card-content h4 {
   font-size: 14px;
   color: #777777;
 }
