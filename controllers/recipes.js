@@ -2,7 +2,7 @@ const fs = require('fs')
 const data = require('../data.js')
 
 exports.index = (req, res) => {
-  return res.send('index')
+  return res.render('admin/index')
 }
 
 exports.create = (req, res) => {

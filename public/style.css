@@ -55,6 +55,18 @@ header .admin a i {
   cursor: pointer;
 }
 
+header.headerAdmin {
+  background-color: black;
+}
+
+header.headerAdmin .container {
+  display: flex;
+}
+
+header.headerAdmin .admin a i {
+  color: white;
+}
+
 /* BANNER */
 
 .banner {
