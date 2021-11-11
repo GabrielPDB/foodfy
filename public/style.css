@@ -305,3 +305,44 @@ footer h6 {
 .recipe-infos .content.hide {
   display: none;
 }
+
+/* ADMIN */
+
+.recipes.admin {
+  padding-top: 50px;
+}
+
+.recipes.admin .cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.recipes.admin .cards .card {
+  display: flex;
+  flex-direction: row;
+  gap: 1.25rem;
+}
+
+.recipes.admin .cards .card .card-image img {
+  height: 80px;
+  max-width: 172px;
+}
+
+.recipes.admin .cards .card .card-content h3 {
+  font-size: 1.125rem;
+  font-weight: normal;
+  color: var(--font-color);
+}
+
+.recipes.admin .cards .card .card-content h4 {
+  font-size: 0.875rem;
+  font-weight: normal;
+  color: #777777;
+}
+
+.recipes.admin .cards .card .card-content a {
+  font-weight: bold;
+  font-size: 0.875rem;
+  color: #6558c3;
+  text-decoration: none;
+}
