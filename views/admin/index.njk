@@ -11,7 +11,7 @@
           <div class="card-content">
             <h3>{{ recipe.title }}</h3>
             <h4>por {{ recipe.author }}</h4>
-            <a href="#">Visualizar</a>
+            <a href="/admin/recipes/{{ recipe.id }}">Visualizar</a>
           </div>
         </div>
       {% endfor %}

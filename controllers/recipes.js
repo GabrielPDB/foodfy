@@ -10,7 +10,13 @@ exports.create = (req, res) => {
 }
 
 exports.show = (req, res) => {
-  return res.send('show')
+  const { id } = req.params
+
+  const foundRecipe = data.find(recipe => {
+    return recipe.id == id
+  })
+
+  return res.render('admin/show', { recipe: foundRecipe })
 }
 
 exports.edit = (req, res) => {

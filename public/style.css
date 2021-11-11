@@ -57,6 +57,7 @@ header .admin a i {
 
 header.headerAdmin {
   background-color: black;
+  margin-bottom: 50px;
 }
 
 header.headerAdmin .container {
@@ -308,10 +309,6 @@ footer h6 {
 
 /* ADMIN */
 
-.recipes.admin {
-  padding-top: 50px;
-}
-
 .recipes.admin .cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -344,5 +341,22 @@ footer h6 {
   font-weight: bold;
   font-size: 0.875rem;
   color: #6558c3;
+  text-decoration: none;
+}
+
+.action-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.action-header a.button {
+  background: #6558c3;
+  border-radius: 4px;
+  color: white;
+  padding: 9px 20px;
+  font-size: 1rem;
+  font-weight: bold;
   text-decoration: none;
 }
