@@ -44,6 +44,17 @@ header .link.active {
   font-weight: bold;
 }
 
+header .admin {
+  flex-grow: 1;
+  display: flex;
+  justify-content: end;
+}
+
+header .admin a i {
+  color: var(--font-color);
+  cursor: pointer;
+}
+
 /* BANNER */
 
 .banner {
