@@ -63,3 +63,15 @@ function addPreparation() {
 
   preparation.appendChild(newInput)
 }
+
+function confirmDelete() {
+  const formDelete = document.querySelector('#deleteRecipeForm')
+  formDelete.addEventListener('submit', event => {
+    const confirmation = confirm(
+      'Tem certeza de que deseja deletar essa receita?'
+    )
+    if (!confirmation) {
+      event.preventDefault()
+    }
+  })
+}

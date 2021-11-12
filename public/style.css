@@ -68,6 +68,34 @@ header.headerAdmin .admin a i {
   color: white;
 }
 
+.action-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.action-header .buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.action-header .buttons button[form='deleteRecipeForm'] {
+  background: #dc4747;
+}
+
+.action-header a.button,
+.action-header button {
+  background: #6558c3;
+  border-radius: 4px;
+  color: white;
+  padding: 9px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 /* BANNER */
 
 .banner {
@@ -341,33 +369,6 @@ footer h6 {
   font-weight: bold;
   font-size: 0.875rem;
   color: #6558c3;
-  text-decoration: none;
-}
-
-.action-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-}
-
-.action-header .buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.action-header .buttons button[form='deleteRecipeForm'] {
-  background: #dc4747;
-}
-
-.action-header a.button,
-.action-header button {
-  background: #6558c3;
-  border-radius: 4px;
-  color: white;
-  padding: 9px 20px;
-  font-size: 1rem;
-  font-weight: bold;
   text-decoration: none;
 }
 
