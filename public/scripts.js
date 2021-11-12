@@ -28,5 +28,38 @@ function showHideContentOfRecipe(info) {
   }
 }
 
-setPageFocusOnHeader()
+if (!window.location.href.includes('admin')) {
+  setPageFocusOnHeader()
+}
 getRecipe()
+
+function addIngredient() {
+  const ingredients = document.querySelector('.ingredients')
+  const inputIngredients = document.querySelectorAll('.ingredients input')
+
+  const newInput = inputIngredients[inputIngredients.length - 1].cloneNode(true)
+
+  if (newInput.value == '') {
+    return false
+  } else {
+    newInput.value = ''
+  }
+
+  ingredients.appendChild(newInput)
+}
+
+function addPreparation() {
+  const preparation = document.querySelector('.preparation')
+  const inputPreparations = document.querySelectorAll('.preparation input')
+
+  const newInput =
+    inputPreparations[inputPreparations.length - 1].cloneNode(true)
+
+  if (newInput.value == '') {
+    return false
+  } else {
+    newInput.value = ''
+  }
+
+  preparation.appendChild(newInput)
+}

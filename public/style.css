@@ -351,7 +351,8 @@ footer h6 {
   margin-bottom: 1.5rem;
 }
 
-.action-header a.button {
+.action-header a.button,
+.action-header button {
   background: #6558c3;
   border-radius: 4px;
   color: white;
@@ -359,4 +360,55 @@ footer h6 {
   font-size: 1rem;
   font-weight: bold;
   text-decoration: none;
+}
+
+/* ADMIN FORM */
+
+form.adminForm {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+form.adminForm .formItem {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form.adminForm .formItem div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form.adminForm .formItem h5 {
+  font-size: 1rem;
+  color: #111111;
+  font-weight: bold;
+}
+
+form.adminForm .formItem input,
+form.adminForm .formItem textarea {
+  width: 100%;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  height: 50px;
+  outline: none;
+  padding: 8px;
+  font-size: 1rem;
+}
+
+form.adminForm .formItem textarea {
+  height: 257px;
+}
+
+form.adminForm .formItem button {
+  background: none;
+  width: fit-content;
+  cursor: pointer;
+  color: #6558c3;
+  font-size: 1rem;
+  font-weight: bold;
 }

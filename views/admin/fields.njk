@@ -1,0 +1,22 @@
+<div class="formItem">
+  <h5>Imagem da receita</h5>
+  <input type="text" name="image"/>
+</div>
+<div class="formItem">
+  <h5>Ingredientes</h5>
+  <div class="ingredients">
+    <input type="text" name="ingredients[]"/>
+  </div>
+  <button type="button" class="addIngredientButton" onclick="addIngredient()">Adicionar novo ingrediente</button>
+</div>
+<div class="formItem">
+  <h5>Modo de preparo</h5>
+  <div class="preparation">
+    <input type="text" name="preparation[]"/>
+  </div>
+  <button type="button" class="addPreparationButton" onclick="addPreparation()">Adicionar novo passo</button>
+</div>
+<div class="formItem">
+  <h5>Informações adicionais</h5>
+  <textarea name="information" cols="30" rows="10"></textarea>
+</div>
