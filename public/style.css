@@ -351,6 +351,15 @@ footer h6 {
   margin-bottom: 1.5rem;
 }
 
+.action-header .buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.action-header .buttons button[form='deleteRecipeForm'] {
+  background: #dc4747;
+}
+
 .action-header a.button,
 .action-header button {
   background: #6558c3;
@@ -396,12 +405,14 @@ form.adminForm .formItem textarea {
   border-radius: 4px;
   height: 50px;
   outline: none;
-  padding: 8px;
+  padding: 15px 20px;
   font-size: 1rem;
 }
 
 form.adminForm .formItem textarea {
   height: 257px;
+  font-family: 'Roboto', sans-serif;
+  line-height: 24px;
 }
 
 form.adminForm .formItem button {

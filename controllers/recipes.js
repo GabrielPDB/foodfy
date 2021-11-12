@@ -20,7 +20,13 @@ exports.show = (req, res) => {
 }
 
 exports.edit = (req, res) => {
-  return res.send('edit')
+  const { id } = req.params
+
+  const foundRecipe = data.find(recipe => {
+    return recipe.id == id
+  })
+
+  return res.render('admin/edit', { recipe: foundRecipe })
 }
 
 exports.post = (req, res) => {
