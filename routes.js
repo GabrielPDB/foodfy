@@ -1,20 +1,20 @@
 const express = require('express')
 const routes = express.Router()
-const data = require('./data')
+const data = require('./data.json')
 const recipes = require('./controllers/recipes')
 
 routes.get('/', (req, res) => {
-  return res.render('home', { recipes: data })
+  return res.render('home', { recipes: data.recipes })
 })
 routes.get('/about', (req, res) => {
   return res.render('about')
 })
 routes.get('/recipes', (req, res) => {
-  return res.render('recipes', { recipes: data })
+  return res.render('recipes', { recipes: data.recipes })
 })
 routes.get('/recipes/:id', (req, res) => {
   const { id } = req.params
-  return res.render('info', { recipe: data[id] })
+  return res.render('info', { recipe: data.recipes[id] })
 })
 
 /* ADMIN */

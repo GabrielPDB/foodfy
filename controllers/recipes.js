@@ -34,7 +34,9 @@ exports.post = (req, res) => {
 
   for (key of keys) {
     if (req.body[key] == '') {
-      return res.send('Please, fill all fields')
+      if (!req.body['information'] == '') {
+        return res.send('Please, fill all fields')
+      }
     }
   }
 
@@ -60,7 +62,9 @@ exports.put = (req, res) => {
 
   for (key of keys) {
     if (req.body[key] == '') {
-      return res.send('Please, fill all fields')
+      if (!req.body['information'] == '') {
+        return res.send('Please, fill all fields')
+      }
     }
   }
 
