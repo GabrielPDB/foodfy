@@ -1,7 +1,7 @@
 const express = require('express')
 const routes = express.Router()
-const data = require('./data.json')
-const recipes = require('./controllers/recipes')
+const data = require('../data.json')
+const recipes = require('./app/controllers/recipes')
 
 routes.get('/', (req, res) => {
   return res.render('site/home', { recipes: data.recipes })
@@ -15,6 +15,9 @@ routes.get('/recipes', (req, res) => {
 routes.get('/recipes/:id', (req, res) => {
   const { id } = req.params
   return res.render('site/info', { recipe: data.recipes[id] })
+})
+routes.get('/chefs', (req, res) => {
+  return res.render('site/chefs')
 })
 
 /* ADMIN */
@@ -30,5 +33,9 @@ routes.get('/admin/recipes/:id/edit', recipes.edit) // Mostrar formulário de ed
 routes.post('/admin/recipes', recipes.post) // Cadastrar nova receita
 routes.put('/admin/recipes', recipes.put) // Editar uma receita
 routes.delete('/admin/recipes', recipes.delete) // Deletar uma receita
+
+routes.get('/admin/chefs', (req, res) => {
+  return res.send('Chefs admin aqui')
+})
 
 module.exports = routes

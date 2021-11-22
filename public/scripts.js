@@ -1,8 +1,19 @@
 function setPageFocusOnHeader() {
-  if (document.location.pathname.indexOf('about') != -1) {
-    document.querySelectorAll('.link')[0].classList.toggle('active')
-  } else if (document.location.pathname.indexOf('recipes') != -1) {
-    document.querySelectorAll('.link')[1].classList.toggle('active')
+  if (document.location.pathname.includes('admin')) {
+    if (document.location.pathname.indexOf('recipes') != -1) {
+      document.querySelectorAll('.link')[0].classList.toggle('active')
+      console.log('passou aqui')
+    } else if (document.location.pathname.indexOf('chefs') != -1) {
+      document.querySelectorAll('.link')[1].classList.toggle('active')
+    }
+  } else {
+    if (document.location.pathname.indexOf('about') != -1) {
+      document.querySelectorAll('.link')[0].classList.toggle('active')
+    } else if (document.location.pathname.indexOf('recipes') != -1) {
+      document.querySelectorAll('.link')[1].classList.toggle('active')
+    } else if (document.location.pathname.indexOf('chefs') != -1) {
+      document.querySelectorAll('.link')[2].classList.toggle('active')
+    }
   }
 }
 
@@ -28,9 +39,7 @@ function showHideContentOfRecipe(info) {
   }
 }
 
-if (!window.location.href.includes('admin')) {
-  setPageFocusOnHeader()
-}
+setPageFocusOnHeader()
 getRecipe()
 
 function addIngredient() {

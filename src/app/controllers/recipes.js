@@ -1,12 +1,12 @@
 const fs = require('fs')
-const data = require('../data.json')
+const data = require('../../../data.json')
 
 exports.index = (req, res) => {
-  return res.render('admin/index', { recipes: data.recipes })
+  return res.render('admin/recipes/index', { recipes: data.recipes })
 }
 
 exports.create = (req, res) => {
-  return res.render('admin/create')
+  return res.render('admin/recipes/create')
 }
 
 exports.show = (req, res) => {
@@ -16,7 +16,7 @@ exports.show = (req, res) => {
     return recipe.id == id
   })
 
-  return res.render('admin/show', { recipe: foundRecipe })
+  return res.render('admin/recipes/show', { recipe: foundRecipe })
 }
 
 exports.edit = (req, res) => {
@@ -26,7 +26,7 @@ exports.edit = (req, res) => {
     return recipe.id == id
   })
 
-  return res.render('admin/edit', { recipe: foundRecipe })
+  return res.render('admin/recipes/edit', { recipe: foundRecipe })
 }
 
 exports.post = (req, res) => {

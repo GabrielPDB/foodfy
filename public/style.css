@@ -23,13 +23,72 @@ body {
 /* HEADER */
 
 header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+header .container {
   display: flex;
   align-items: center;
   padding: 1.875rem 0;
   gap: 7.5rem;
 }
 
-header .links {
+header .container .links {
+  display: flex;
+  gap: 1.875rem;
+}
+
+header .container .admin {
+  flex-grow: 1;
+  display: flex;
+  justify-content: end;
+}
+
+/* HEADER SITE */
+
+header.headerSite {
+  background: white;
+}
+
+header.headerSite a {
+  color: #111111;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+header.headerSite .link.active a {
+  font-weight: bold;
+}
+
+/* HEADER ADMIN */
+
+header.headerAdmin {
+  background: black;
+  margin-bottom: 50px;
+}
+
+header.headerAdmin a {
+  color: #999999;
+  font-size: 1rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+header.headerAdmin .link.active a {
+  color: white;
+}
+
+/* header {
+  display: flex;
+  align-items: center;
+  padding: 1.875rem 0;
+  gap: 7.5rem;
+}
+
+header .links,
+header.headerAdmin .links {
   display: flex;
   gap: 1.875rem;
 }
@@ -64,9 +123,15 @@ header.headerAdmin .container {
   display: flex;
 }
 
-header.headerAdmin .admin a i {
+header.headerAdmin a {
   color: white;
 }
+
+header.headerAdmin .admin a i {
+  color: white;
+} */
+
+/* ACTION HEADER */
 
 .action-header {
   display: flex;
@@ -336,6 +401,8 @@ footer h6 {
 }
 
 /* ADMIN */
+
+/* ADMIN INDEX */
 
 .recipes.admin .cards {
   display: grid;
