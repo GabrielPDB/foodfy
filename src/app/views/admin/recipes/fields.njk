@@ -1,0 +1,42 @@
+<div class="formItem">
+  <h5>Imagem da receita</h5>
+  <input type="url" name="image" value="{{ recipe.image }}" placeholder="http://..."/>
+</div>
+<div class="formItem">
+  <h5>Nome da receita</h5>
+  <input type="text" name="title" value="{{ recipe.title }}"/>
+</div>
+<div class="formItem">
+  <h5>Autor da receita</h5>
+  <input type="text" name="author" value="{{ recipe.author }}"/>
+</div>
+<div class="formItem">
+  <h5>Ingredientes</h5>
+  <div class="ingredients">
+    {% if recipe.ingredients %}
+      {% for ingredient in recipe.ingredients %}
+        <input type="text" name="ingredients[]" value="{{ ingredient }}"/>
+      {% endfor %}
+    {% else %}
+      <input type="text" name="ingredients[]"/>
+    {% endif %}
+  </div>
+  <button type="button" class="addIngredientButton" onclick="addIngredient()">Adicionar novo ingrediente</button>
+</div>
+<div class="formItem">
+  <h5>Modo de preparo</h5>
+  <div class="preparation">
+    {% if recipe.preparation %}
+      {% for preparation in recipe.preparation %}
+        <input type="text" name="preparation[]" value="{{ preparation }}"/>
+      {% endfor %}
+    {% else %}
+      <input type="text" name="preparation[]"/>
+    {% endif %}
+  </div>
+  <button type="button" class="addPreparationButton" onclick="addPreparation()">Adicionar novo passo</button>
+</div>
+<div class="formItem">
+  <h5>Informações adicionais</h5>
+  <textarea name="information" cols="30" rows="10">{{ recipe.information }}</textarea>
+</div>
