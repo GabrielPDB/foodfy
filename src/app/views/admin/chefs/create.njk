@@ -1,16 +1,16 @@
 {% extends 'admin/layout.njk' %}
 {% block content %}
-  <section class="recipe container">
-    <div class="recipe-header">
+  <section class="chef container">
+    <div class="chef-header">
       <div class="action-header">
-        <h2>Criando receita</h2>
+        <h2>Criando chef</h2>
         <div class="buttons">
-          <button type="submit" form="createRecipeForm">Salvar receita</button>
+          <button type="submit" form="createChefForm">Salvar chef</button>
         </div>
       </div>
     </div>
-    <form action="/admin/recipes" method="post" id="createRecipeForm" class="adminForm">
-      {% include 'admin/fields.njk' %}
+    <form action="/admin/chefs" method="post" id="createChefForm" class="adminForm">
+      {% include 'admin/chefs/fields.njk' %}
     </form>
   </section>
 {% endblock content %}

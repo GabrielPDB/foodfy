@@ -1,19 +1,19 @@
 {% extends 'admin/layout.njk' %}
 {% block content %}
-  <section class="recipe container">
-    <div class="recipe-header">
+  <section class="chef container">
+    <div class="chef-header">
       <div class="action-header">
-        <h2>Editando receita</h2>
+        <h2>Editando chef</h2>
         <div class="buttons">
-          <button type="submit" form="deleteRecipeForm" onclick="confirmDelete()">Deletar</button>
-          <button type="submit" form="editRecipeForm">Salvar receita</button>
+          <button type="submit" form="deleteChefForm" onclick="confirmDelete()" class="buttonDelete">Deletar</button>
+          <button type="submit" form="editChefForm">Salvar chef</button>
         </div>
       </div>
     </div>
-    <form action="/admin/recipes?_method=PUT" method="post" id="editRecipeForm" class="adminForm">
-      {% include 'admin/fields.njk' %} <input type="hidden" name="id" value="{{ recipe.id }}"/></form>
-    <form action="/admin/recipes?_method=DELETE" method="post" id="deleteRecipeForm">
-      <input type="hidden" name="id" value="{{ recipe.id }}"/>
+    <form action="/admin/chefs?_method=PUT" method="post" id="editChefForm" class="adminForm">
+      {% include 'admin/chefs/fields.njk' %} <input type="hidden" name="id" value="{{ chef.id }}"/></form>
+    <form action="/admin/chefs?_method=DELETE" method="post" id="deleteChefForm">
+      <input type="hidden" name="id" value="{{ chef.id }}"/>
     </form>
   </section>
 {% endblock content %}
