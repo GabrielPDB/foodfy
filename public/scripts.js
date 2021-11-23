@@ -18,7 +18,7 @@ function setPageFocusOnHeader() {
 }
 
 function getRecipe() {
-  const cards = document.querySelectorAll('.card')
+  const cards = document.querySelectorAll('section.recipes.site .card')
 
   cards.forEach((card, index) => {
     card.addEventListener('click', () => {

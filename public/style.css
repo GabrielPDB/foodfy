@@ -304,7 +304,13 @@ footer h6 {
   grid-template-columns: 1fr 1fr;
 }
 
-.recipes.admin .cards .card {
+.chefs.admin .cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.recipes.admin .cards .card,
+.chefs.admin .cards .card {
   display: flex;
   flex-direction: row;
   gap: 1.25rem;
@@ -315,7 +321,20 @@ footer h6 {
   max-width: 172px;
 }
 
-.recipes.admin .cards .card .card-content h3 {
+.chefs.admin .cards .card .card-image img {
+  width: 64px;
+  border-radius: 50%;
+}
+
+.chefs.admin .cards .card .card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+}
+
+.recipes.admin .cards .card .card-content h3,
+.chefs.admin .cards .card .card-content h3 {
   font-size: 1.125rem;
   font-weight: normal;
   color: var(--font-color);
@@ -327,11 +346,50 @@ footer h6 {
   color: #777777;
 }
 
-.recipes.admin .cards .card .card-content a {
+.recipes.admin .cards .card .card-content a,
+.chefs.admin .cards .card .card-content a {
   font-weight: bold;
   font-size: 0.875rem;
   color: #6558c3;
   text-decoration: none;
+}
+
+/* ADMIN SHOW */
+
+.chef-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.chef-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.chef-image img {
+  width: 200px;
+  border-radius: 50%;
+}
+
+.chef-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 50px;
+}
+
+.chef-title h1 {
+  font-size: 2.25rem;
+  font-weight: bold;
+  color: #111111;
+}
+
+.chef-title h3 {
+  font-size: 1.25rem;
+  font-weight: normal;
+  color: #777777;
 }
 
 /* ADMIN FORM */
