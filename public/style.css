@@ -420,7 +420,8 @@ form.adminForm .formItem h5 {
 }
 
 form.adminForm .formItem input,
-form.adminForm .formItem textarea {
+form.adminForm .formItem textarea,
+form.adminForm .formItem select {
   width: 100%;
   border: 1px solid #dddddd;
   border-radius: 4px;
@@ -428,6 +429,10 @@ form.adminForm .formItem textarea {
   outline: none;
   padding: 15px 20px;
   font-size: 1rem;
+}
+
+form.adminForm .formItem select option.placeholder {
+  color: #999999;
 }
 
 form.adminForm .formItem textarea {

@@ -1,23 +1,26 @@
 const fs = require('fs')
 const data = require('../../../data.json')
+const { date } = require('../../lib/utils')
 const Recipe = require('../models/Recipe')
 
 exports.index = (req, res) => {
-  return res.render('admin/recipes/index', { recipes: data.recipes })
+  Recipe.all(recipes => {
+    return res.render('admin/recipes/index', { recipes })
+  })
 }
 
 exports.create = (req, res) => {
-  return res.render('admin/recipes/create')
+  Recipe.getChefsToSelectOptions(chefs => {
+    return res.render('admin/recipes/create', { chefs })
+  })
 }
 
 exports.show = (req, res) => {
   const { id } = req.params
 
-  const foundRecipe = data.recipes.find(recipe => {
-    return recipe.id == id
+  Recipe.find(id, recipe => {
+    return res.render('admin/recipes/show', { recipe })
   })
-
-  return res.render('admin/recipes/show', { recipe: foundRecipe })
 }
 
 exports.edit = (req, res) => {
@@ -41,20 +44,18 @@ exports.post = (req, res) => {
     }
   }
 
-  let id = 1
-  const lastRecipe = data.recipes[data.recipes.length - 1]
-  if (lastRecipe) {
-    id = lastRecipe.id + 1
-  }
-
-  data.recipes.push({
-    ...req.body,
-    id
+  req.body.ingredients = req.body.ingredients.map(ingredient => {
+    return `"${ingredient}"`
   })
+  req.body.preparation = req.body.preparation.map(preparation => {
+    return `"${preparation}"`
+  })
+  req.body.created_at = date(Date.now()).iso
 
-  fs.writeFile('data.json', JSON.stringify(data, null, 2), err => {
-    if (err) return res.send('Write file error' + err)
-    return res.redirect(`/admin/recipes/${id}`)
+  /* return res.send(req.body) */
+
+  Recipe.create(req.body, recipe => {
+    return res.redirect(`/admin/recipes/${recipe.id}`)
   })
 }
 
