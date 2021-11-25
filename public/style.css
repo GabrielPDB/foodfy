@@ -29,10 +29,10 @@ header {
 }
 
 header .container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 0.3fr;
   align-items: center;
   padding: 1.875rem 0;
-  gap: 7.5rem;
 }
 
 header .container .links {
@@ -60,6 +60,35 @@ header.headerSite a {
 
 header.headerSite .link.active a {
   font-weight: bold;
+}
+
+header.headerSite form.search.hide {
+  visibility: hidden;
+}
+
+header.headerSite form.search {
+  justify-content: end;
+  display: flex;
+  gap: 0.5rem;
+}
+
+header.headerSite form.search input {
+  font-size: 0.875rem;
+  color: #999999;
+  padding: 10px 15px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+header.headerSite form.search button {
+  font-size: 1rem;
+  color: white;
+  font-weight: bold;
+  background: #6558c3;
+  border-radius: 4px;
+  padding: 9px 20px;
+  cursor: pointer;
 }
 
 /* HEADER ADMIN */
@@ -344,6 +373,12 @@ footer h6 {
   font-size: 0.875rem;
   font-weight: normal;
   color: #777777;
+}
+
+.chefs.admin .cards .card .card-content h5 {
+  font-size: 0.875rem;
+  font-weight: normal;
+  color: #666666;
 }
 
 .recipes.admin .cards .card .card-content a,

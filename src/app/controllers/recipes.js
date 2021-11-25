@@ -1,5 +1,3 @@
-const fs = require('fs')
-const data = require('../../../data.json')
 const { date } = require('../../lib/utils')
 const Recipe = require('../models/Recipe')
 

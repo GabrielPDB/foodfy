@@ -1,8 +1,27 @@
 {% extends "site/layout.njk" %}
 {% block content %}
-  <section class="chefs container">
+  <section class="chefs admin container">
     <div class="cards">
-      Listagem de chefs aqui depois
-    </div>
-  </section>
-{% endblock content %}
+      {% for chef in chefs %}
+        <div class="card">
+          <div class="card-image">
+            <img src="{{ chef.avatar_url }}" alt="Imagem de {{ chef.name }}"></div>
+            <div class="card-content">
+              <h3>{{ chef.name }}</h3>
+              <h5>
+                {% if chef.total_recipes > 0 %}
+                  {% if chef.total_recipes == 1 %}
+                    {{ chef.total_recipes }} receita
+                  {% else %}
+                    {{ chef.total_recipes }} receitas
+                  {% endif %}
+                {% else %}
+                  Nenhuma receita
+                {% endif %}
+              </h5>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  {% endblock content %}

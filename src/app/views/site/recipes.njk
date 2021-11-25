@@ -3,13 +3,13 @@
   <section class="recipes site container">
     <div class="cards">
       {% for recipe in recipes %}
-        <div class="card">
+        <div class="card" id="{{ recipe.id }}">
           <div class="card-image">
             <img src="{{ recipe.image }}" alt="{{ recipe.title }}"/>
           </div>
           <div class="card-content">
             <h3>{{ recipe.title }}</h3>
-            <h4>por {{ recipe.author }}</h4>
+            <h4>por {{ recipe.chef_name }}</h4>
           </div>
         </div>
       {% endfor %}

@@ -27,6 +27,10 @@
             <a href="/chefs">Chefs</a>
           </div>
         </div>
+        <form class="search" action="/recipes" method="GET">
+          <input type="text" name="search" placeholder="Buscar uma receita" value="{{ search }}"/>
+          <button type="submit">Buscar</button>
+        </form>
         <div class="admin">
           <a href="/admin">
             <i class="material-icons">settings</i>

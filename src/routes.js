@@ -3,23 +3,19 @@ const routes = express.Router()
 const data = require('../data.json')
 const recipes = require('./app/controllers/recipes')
 const chefs = require('./app/controllers/chefs')
+const site = require('./app/controllers/site')
+
+/* SITE */
 
 routes.get('/', (req, res) => {
-  return res.render('site/home', { recipes: data.recipes })
+  return res.redirect('/home')
 })
-routes.get('/about', (req, res) => {
-  return res.render('site/about')
-})
-routes.get('/recipes', (req, res) => {
-  return res.render('site/recipes', { recipes: data.recipes })
-})
-routes.get('/recipes/:id', (req, res) => {
-  const { id } = req.params
-  return res.render('site/info', { recipe: data.recipes[id] })
-})
-routes.get('/chefs', (req, res) => {
-  return res.render('site/chefs')
-})
+
+routes.get('/home', site.home)
+routes.get('/about', site.about)
+routes.get('/recipes', site.recipes)
+routes.get('/recipes/:id', site.recipeInfo)
+routes.get('/chefs', site.chefs)
 
 /* ADMIN */
 

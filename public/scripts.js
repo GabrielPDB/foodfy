@@ -19,9 +19,10 @@ function setPageFocusOnHeader() {
 function getRecipe() {
   const cards = document.querySelectorAll('section.recipes.site .card')
 
-  cards.forEach((card, index) => {
+  cards.forEach(card => {
+    const cardId = card.getAttribute('id')
     card.addEventListener('click', () => {
-      window.location.href = `/recipes/${index}`
+      window.location.href = `/recipes/${cardId}`
     })
   })
 }
@@ -38,7 +39,17 @@ function showHideContentOfRecipe(info) {
   }
 }
 
+function hideSearchForm() {
+  if (
+    document.location.pathname.includes('about') ||
+    document.location.pathname.includes('chefs')
+  ) {
+    document.querySelector('form.search').classList.add('hide')
+  }
+}
+
 setPageFocusOnHeader()
+hideSearchForm()
 getRecipe()
 
 function addIngredient() {
