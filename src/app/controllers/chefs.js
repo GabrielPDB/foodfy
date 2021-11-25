@@ -62,7 +62,15 @@ exports.put = (req, res) => {
 }
 
 exports.delete = (req, res) => {
-  Chef.delete(req.body.id, () => {
-    return res.redirect(`/admin/chefs`)
+  Chef.getRecipesOfChef(req.body.id, recipes => {
+    if (recipes.length > 0) {
+      return res.send(
+        `Esse chef tem receitas cadastradas. Não é possível excluí-lo`
+      )
+    } else {
+      Chef.delete(req.body.id, () => {
+        return res.redirect(`/admin/chefs`)
+      })
+    }
   })
 }

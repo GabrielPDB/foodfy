@@ -1,6 +1,7 @@
 {% extends "site/layout.njk" %}
 {% block content %}
   <section class="recipes site container">
+    <h2>Todas as receitas</h2>
     <div class="cards">
       {% for recipe in recipes %}
         <div class="card" id="{{ recipe.id }}">

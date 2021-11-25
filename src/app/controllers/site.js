@@ -13,9 +13,16 @@ exports.about = (req, res) => {
 }
 
 exports.recipes = (req, res) => {
-  Recipe.all(recipes => {
-    return res.render('site/recipes', { recipes })
-  })
+  const { search } = req.query
+
+  if (search == '' || !search) {
+    Recipe.all(recipes => {
+      return res.render('site/recipes', { recipes, search })
+    })
+  } else
+    Recipe.findBy(search, recipes => {
+      return res.render('site/recipes', { recipes, search })
+    })
 }
 
 exports.recipeInfo = (req, res) => {

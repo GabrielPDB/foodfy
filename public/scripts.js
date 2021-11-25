@@ -42,7 +42,8 @@ function showHideContentOfRecipe(info) {
 function hideSearchForm() {
   if (
     document.location.pathname.includes('about') ||
-    document.location.pathname.includes('chefs')
+    (document.location.pathname.includes('chefs') &&
+      !document.location.pathname.includes('admin'))
   ) {
     document.querySelector('form.search').classList.add('hide')
   }
