@@ -38,10 +38,44 @@ module.exports = {
     })
   },
   find(id, callback) {
-    db.query(`SELECT * FROM recipes WHERE id = $1`, [id], (err, results) => {
+    db.query(
+      `
+      SELECT recipes.*, chefs.name AS chef_name FROM recipes 
+      LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+      WHERE recipes.id = $1
+    `,
+      [id],
+      (err, results) => {
+        if (err) throw `Database error! ${err}`
+
+        callback(results.rows[0])
+      }
+    )
+  },
+  update(data, callback) {
+    const query = `
+      UPDATE recipes SET
+        chef_id = ($1),
+        image = ($2),
+        title = ($3),
+        ingredients = ('{${data.ingredients}}'),
+        preparation = ('{${data.preparation}}'),
+        information = ($4)
+      WHERE id = $5
+    `
+
+    const values = [
+      data.chef_id,
+      data.image,
+      data.title,
+      data.information,
+      data.id
+    ]
+
+    db.query(query, values, (err, results) => {
       if (err) throw `Database error! ${err}`
 
-      callback(results.rows[0])
+      callback()
     })
   },
   getChefsToSelectOptions(callback) {
@@ -50,5 +84,18 @@ module.exports = {
 
       callback(results.rows)
     })
+  },
+  delete(id, callback) {
+    db.query(
+      `
+      DELETE FROM recipes WHERE id = $1
+    `,
+      [id],
+      (err, results) => {
+        if (err) throw `Database error! ${err}`
+
+        callback()
+      }
+    )
   }
 }
