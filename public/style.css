@@ -392,6 +392,14 @@ footer h6 {
   color: #777777;
 }
 
+.recipes_of_chef {
+  margin-bottom: 2rem;
+}
+
+.recipes_of_chef h2 {
+  margin-bottom: 2rem;
+}
+
 /* ADMIN FORM */
 
 form.adminForm {

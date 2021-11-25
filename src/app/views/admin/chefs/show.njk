@@ -1,6 +1,6 @@
 {% extends "admin/layout.njk" %}
 {% block content %}
-  <section class="chef admin container">
+  <section class="chef recipes admin container">
     <div class="chef-header">
       <div class="action-header">
         <h2>Chef: {{ chef.name }}</h2>
@@ -11,7 +11,17 @@
       </div>
       <div class="chef-title">
         <h1>{{ chef.name }}</h1>
-        <h3>Algumas receitas</h3>
+        <h3>
+          {% if chef.total_recipes > 0 %}
+            {% if chef.total_recipes == 1 %}
+              {{ chef.total_recipes }} receita
+            {% else %}
+              {{ chef.total_recipes }} receitas
+            {% endif %}
+          {% else %}
+            Nenhuma receita
+          {% endif %}
+        </h3>
       </div>
     </div>
     <div class="recipes_of_chef">
@@ -24,7 +34,7 @@
             </div>
             <div class="card-content">
               <h3>{{ recipe.title }}</h3>
-              <h4>por {{ recipe.author }}</h4>
+              <h4>por {{ chef.name }}</h4>
               <a href="/admin/recipes/{{ recipe.id }}">Visualizar</a>
             </div>
           </div>

@@ -15,7 +15,9 @@ exports.show = (req, res) => {
   const { id } = req.params
 
   Chef.find(id, chef => {
-    return res.render('admin/chefs/show', { chef })
+    Chef.getRecipesOfChef(id, recipes => {
+      return res.render('admin/chefs/show', { chef, recipes })
+    })
   })
 }
 
