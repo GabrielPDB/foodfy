@@ -15,33 +15,22 @@ module.exports = {
       }
     )
   },
-  create(data, callback) {
-    let query = `
+  create(data) {
+    const query = `
       INSERT INTO recipes (
         chef_id,
-        image,
         title,
         ingredients,
         preparation,
         information,
         created_at
-      ) VALUES ($1, $2, $3, '{${data.ingredients}}', '{${data.preparation}}', $4, $5)
+      ) VALUES ($1, $2, '{${data.ingredients}}', '{${data.preparation}}', $3, $4)
       RETURNING id
     `
 
-    const values = [
-      data.chef_id,
-      data.image,
-      data.title,
-      data.information,
-      data.created_at
-    ]
+    const values = [data.chef_id, data.title, data.information, data.created_at]
 
-    db.query(query, values, (err, results) => {
-      if (err) throw `Database error! ${err}`
-
-      callback(results.rows[0])
-    })
+    return db.query(query, values)
   },
   find(id, callback) {
     db.query(
@@ -77,21 +66,14 @@ module.exports = {
     const query = `
       UPDATE recipes SET
         chef_id = ($1),
-        image = ($2),
-        title = ($3),
+        title = ($2),
         ingredients = ('{${data.ingredients}}'),
         preparation = ('{${data.preparation}}'),
-        information = ($4)
-      WHERE id = $5
+        information = ($3)
+      WHERE id = $4
     `
 
-    const values = [
-      data.chef_id,
-      data.image,
-      data.title,
-      data.information,
-      data.id
-    ]
+    const values = [data.chef_id, data.title, data.information, data.id]
 
     db.query(query, values, (err, results) => {
       if (err) throw `Database error! ${err}`
@@ -117,6 +99,16 @@ module.exports = {
 
         callback()
       }
+    )
+  },
+  getRecipeFiles(recipe_id) {
+    return db.query(
+      `
+        SELECT * FROM files
+        LEFT JOIN recipe_files ON (files.id = recipes_files.file_id)
+        WHERE recipe_files.recipe_id = $1
+      `,
+      [recipe_id]
     )
   }
 }

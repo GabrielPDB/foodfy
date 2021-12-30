@@ -509,7 +509,7 @@ form.adminForm .formItem input[type='file'] {
   cursor: pointer;
 }
 
-form.adminForm .images-input {
+form.adminForm .images-upload {
   position: relative;
 }
 
@@ -520,7 +520,7 @@ form.adminForm .formItem .files-upload {
   gap: 10px;
 }
 
-form.adminForm .images-input i.material-icons {
+form.adminForm .images-upload i.material-icons {
   width: 149px;
   height: 149px;
   border: 1px solid #dddddd;

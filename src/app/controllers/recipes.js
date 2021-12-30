@@ -1,89 +1,103 @@
 const { date } = require('../../lib/utils')
 const Recipe = require('../models/Recipe')
+const File = require('../models/File')
 
-exports.index = (req, res) => {
-  Recipe.all(recipes => {
-    return res.render('admin/recipes/index', { recipes })
-  })
-}
-
-exports.create = (req, res) => {
-  Recipe.getChefsToSelectOptions(chefs => {
-    return res.render('admin/recipes/create', { chefs })
-  })
-}
-
-exports.show = (req, res) => {
-  const { id } = req.params
-
-  Recipe.find(id, recipe => {
-    return res.render('admin/recipes/show', { recipe })
-  })
-}
-
-exports.edit = (req, res) => {
-  const { id } = req.params
-
-  Recipe.find(id, recipe => {
-    Recipe.getChefsToSelectOptions(chefs => {
-      return res.render('admin/recipes/edit', { recipe, chefs })
+module.exports = {
+  index(req, res) {
+    Recipe.all(recipes => {
+      return res.render('admin/recipes/index', { recipes })
     })
-  })
-}
+  },
+  async create(req, res) {
+    Recipe.getChefsToSelectOptions(chefs => {
+      return res.render('admin/recipes/create', { chefs })
+    })
+  },
+  async show(req, res) {
+    const { id } = req.params
 
-exports.post = (req, res) => {
-  const keys = Object.keys(req.body)
+    Recipe.find(id, recipe => {
+      return res.render('admin/recipes/show', { recipe })
+    })
+  },
+  async edit(req, res) {
+    const { id } = req.params
 
-  for (key of keys) {
-    if (req.body[key] == '') {
-      if (!req.body['information'] == '') {
-        return res.send('Please, fill all fields')
+    Recipe.find(id, recipe => {
+      Recipe.getChefsToSelectOptions(chefs => {
+        return res.render('admin/recipes/edit', { recipe, chefs })
+      })
+    })
+  },
+  async post(req, res) {
+    const keys = Object.keys(req.body)
+
+    for (key of keys) {
+      if (req.body[key] == '') {
+        if (!req.body['information'] == '') {
+          return res.send('Please, fill all fields')
+        }
       }
     }
-  }
 
-  req.body.ingredients = req.body.ingredients.map(ingredient => {
-    return `"${ingredient}"`
-  })
-  req.body.preparation = req.body.preparation.map(preparation => {
-    return `"${preparation}"`
-  })
-  req.body.created_at = date(Date.now()).iso
+    if (req.files.length == 0) {
+      return res.send('Please, send at least one image')
+    }
 
-  /* return res.send(req.body) */
+    req.body.ingredients = req.body.ingredients.map(
+      ingredient => `"${ingredient}"`
+    )
+    req.body.preparation = req.body.preparation.map(
+      preparation => `"${preparation}"`
+    )
+    req.body.created_at = date(Date.now()).iso
 
-  Recipe.create(req.body, recipe => {
-    return res.redirect(`/admin/recipes/${recipe.id}`)
-  })
-}
+    let results = await Recipe.create(req.body)
+    const recipeId = results.rows[0].id
 
-exports.put = (req, res) => {
-  const keys = Object.keys(req.body)
+    req.files.forEach(async file => {
+      results = await File.create(file)
+      const fileId = results.rows[0].id
 
-  for (key of keys) {
-    if (req.body[key] == '') {
-      if (!req.body['information'] == '') {
-        return res.send('Please, fill all fields')
+      results = await File.insertRecipeFile(fileId, recipeId)
+    })
+
+    /*  const filesPromise = req.files.map(file =>
+      File.create({
+        ...file,
+        recipe_id: recipeId
+      })
+    ) */
+
+    return res.redirect(`/admin/recipes/${recipeId}`)
+  },
+  async put(req, res) {
+    const keys = Object.keys(req.body)
+
+    for (key of keys) {
+      if (req.body[key] == '') {
+        if (!req.body['information'] == '') {
+          return res.send('Please, fill all fields')
+        }
       }
     }
+
+    req.body.ingredients = req.body.ingredients.map(ingredient => {
+      return `"${ingredient}"`
+    })
+    req.body.preparation = req.body.preparation.map(preparation => {
+      return `"${preparation}"`
+    })
+
+    Recipe.update(req.body, () => {
+      return res.redirect(`/admin/recipes/${req.body.id}`)
+    })
+  },
+  async delete(req, res) {
+    const { id } = req.body
+
+    Recipe.delete(id, () => {
+      return res.redirect('/admin/recipes')
+    })
   }
-
-  req.body.ingredients = req.body.ingredients.map(ingredient => {
-    return `"${ingredient}"`
-  })
-  req.body.preparation = req.body.preparation.map(preparation => {
-    return `"${preparation}"`
-  })
-
-  Recipe.update(req.body, () => {
-    return res.redirect(`/admin/recipes/${req.body.id}`)
-  })
-}
-
-exports.delete = (req, res) => {
-  const { id } = req.body
-
-  Recipe.delete(id, () => {
-    return res.redirect('/admin/recipes')
-  })
 }
