@@ -1,35 +1,33 @@
 const Chef = require('../models/Chef')
 const { date } = require('../../lib/utils')
 
-exports.index = (req, res) => {
-  Chef.all(chefs => {
-    return res.render('admin/chefs/index', { chefs })
-  })
+exports.index = async (req, res) => {
+  const chefs = (await Chef.all()).rows
+  return res.render('admin/chefs/index', { chefs })
 }
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   return res.render('admin/chefs/create')
 }
 
-exports.show = (req, res) => {
+exports.show = async (req, res) => {
   const { id } = req.params
 
-  Chef.find(id, chef => {
-    Chef.getRecipesOfChef(id, recipes => {
-      return res.render('admin/chefs/show', { chef, recipes })
-    })
-  })
+  const chef = (await Chef.find(id)).rows[0]
+  const recipes = (await Chef.getRecipesOfChef(chef)).rows
+
+  return res.render('admin/chefs/show', { chef, recipes })
 }
 
-exports.edit = (req, res) => {
+exports.edit = async (req, res) => {
   const { id } = req.params
 
-  Chef.find(id, chef => {
-    return res.render('admin/chefs/edit', { chef })
-  })
+  const chef = (await Chef.find(id)).rows[0]
+
+  return res.render('admin/chefs/edit', { chef })
 }
 
-exports.post = (req, res) => {
+exports.post = async (req, res) => {
   const keys = Object.keys(req.body)
 
   for (key of keys) {
@@ -40,12 +38,12 @@ exports.post = (req, res) => {
 
   req.body.created_at = date(Date.now()).iso
 
-  Chef.create(req.body, chef => {
-    return res.redirect(`/admin/chefs/${chef.id}`)
-  })
+  const chefId = (await Chef.create(req.body)).rows[0].id
+
+  return res.redirect(`/admin/chefs/${chef.id}`)
 }
 
-exports.put = (req, res) => {
+exports.put = async (req, res) => {
   const keys = Object.keys(req.body)
 
   for (key of keys) {
@@ -56,21 +54,21 @@ exports.put = (req, res) => {
 
   req.body.id = Number(req.body.id)
 
-  Chef.update(req.body, () => {
-    return res.redirect(`/chefs/${req.body.id}`)
-  })
+  await Chef.update(req.body)
+
+  return res.redirect(`/chefs/${req.body.id}`)
 }
 
-exports.delete = (req, res) => {
-  Chef.getRecipesOfChef(req.body.id, recipes => {
-    if (recipes.length > 0) {
-      return res.send(
-        `Esse chef tem receitas cadastradas. Não é possível excluí-lo`
-      )
-    } else {
-      Chef.delete(req.body.id, () => {
-        return res.redirect(`/admin/chefs`)
-      })
-    }
-  })
+exports.delete = async (req, res) => {
+  const recipes = (await Chef.getRecipesOfChef(req.body.id)).rows
+
+  if (recipes.length > 0) {
+    return res.send(
+      `Esse chef tem receitas cadastradas. Não é possível excluí-lo`
+    )
+  } else {
+    await Chef.delete(req.body.id)
+
+    return res.redirect(`/admin/chefs`)
+  }
 }

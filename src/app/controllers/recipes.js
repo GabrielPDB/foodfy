@@ -3,31 +3,43 @@ const Recipe = require('../models/Recipe')
 const File = require('../models/File')
 
 module.exports = {
-  index(req, res) {
-    Recipe.all(recipes => {
-      return res.render('admin/recipes/index', { recipes })
-    })
+  async index(req, res) {
+    const results = await Recipe.all()
+    const recipes = results.rows
+
+    return res.render('admin/recipes/index', { recipes })
   },
   async create(req, res) {
-    Recipe.getChefsToSelectOptions(chefs => {
-      return res.render('admin/recipes/create', { chefs })
-    })
+    const results = await Recipe.getChefsToSelectOptions()
+    const chefs = results.rows
+
+    return res.render('admin/recipes/create', { chefs })
   },
   async show(req, res) {
     const { id } = req.params
 
-    Recipe.find(id, recipe => {
-      return res.render('admin/recipes/show', { recipe })
-    })
+    let results = await Recipe.find(id)
+    const recipe = results.rows[0]
+
+    results = await Recipe.getRecipeFiles(recipe.id)
+    const files = results.rows.map(file => ({
+      ...file,
+      src: `${req.protocol}://${req.headers.host}${file.path.replace(
+        'public',
+        ''
+      )}`
+    }))
+
+    return res.render('admin/recipes/show', { recipe, files })
   },
   async edit(req, res) {
     const { id } = req.params
 
-    Recipe.find(id, recipe => {
-      Recipe.getChefsToSelectOptions(chefs => {
-        return res.render('admin/recipes/edit', { recipe, chefs })
-      })
-    })
+    const results = await Recipe.find(id)
+    const recipe = results.rows[0]
+    const chefs = (await Recipe.getChefsToSelectOptions()).rows
+
+    return res.render('admin/recipes/edit', { recipe, chefs })
   },
   async post(req, res) {
     const keys = Object.keys(req.body)
