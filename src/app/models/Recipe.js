@@ -5,7 +5,7 @@ module.exports = {
   all(callback) {
     db.query(
       `
-      SELECT recipes.id, recipes.title, recipes.image, chefs.name AS chef_name FROM recipes
+      SELECT recipes.id, recipes.title, chefs.name AS chef_name FROM recipes
       LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
     `,
       (err, results) => {

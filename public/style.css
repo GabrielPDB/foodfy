@@ -496,3 +496,87 @@ form.adminForm .formItem button {
   font-size: 1rem;
   font-weight: bold;
 }
+
+form.adminForm .formItem input[type='file'] {
+  width: 149px;
+  height: 149px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  outline: none;
+  background: white;
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+}
+
+form.adminForm .images-input {
+  position: relative;
+}
+
+form.adminForm .formItem .files-upload {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 10px;
+}
+
+form.adminForm .images-input i.material-icons {
+  width: 149px;
+  height: 149px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  outline: none;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: #777777;
+}
+
+form.adminForm .formItem .files-upload .images-preview {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 10px;
+}
+
+form.adminForm .formItem .files-upload .images-preview .photo {
+  width: 149px;
+  height: 149px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+form.adminForm .formItem .files-upload .images-preview .photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+form.adminForm .formItem .files-upload .images-preview .photo i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.8);
+
+  color: red;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 500%;
+  cursor: pointer;
+  transition: opacity 200ms;
+  opacity: 0;
+}
+
+form.adminForm .formItem .files-upload .images-preview .photo:hover i {
+  opacity: 1;
+}

@@ -1,10 +1,22 @@
 <div class="formItem">
-  <h5>Imagem da receita</h5>
-  <input type="url" name="image" value="{{ recipe.image }}" placeholder="http://..."/>
-</div>
-<div class="formItem">
   <h5>Nome da receita</h5>
   <input type="text" name="title" value="{{ recipe.title }}"/>
+</div>
+<div class="formItem ">
+  <h5>Imagens da receita</h5>
+  <div class="files-upload">
+    <div class="images-input">
+      <input
+        type="file"
+        name="images"
+        id="images-input"
+        multiple
+        accept="image/*"
+        onchange="ImagesUpload.handleFileInput(event)"/>
+      <i class="material-icons">add</i>
+    </div>
+    <div class="images-preview"></div>
+  </div>
 </div>
 <div class="formItem">
   <h5>Chef</h5>
