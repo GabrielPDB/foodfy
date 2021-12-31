@@ -1,5 +1,6 @@
 const db = require('../../config/db')
 const { date } = require('../../lib/utils')
+const File = require('../models/File')
 
 module.exports = {
   all() {
@@ -111,5 +112,17 @@ module.exports = {
       `,
       [recipe_id]
     )
+  },
+  async getFirstImageOfRecipe(id) {
+    try {
+      let results = await db.query(
+        `SELECT file_id FROM recipe_files WHERE recipe_id = $1`,
+        [id]
+      )
+
+      return await File.findFileById(results.rows[0].file_id)
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

@@ -11,7 +11,7 @@
       {% for recipe in recipes %}
         <div class="card">
           <div class="card-image">
-            <img src="{{ recipe.image }}" alt="{{ recipe.title }}"/>
+            <img src="{{ recipe.image.src }}" alt="{{ recipe.image.name }}"/>
           </div>
           <div class="card-content">
             <h3>{{ recipe.title }}</h3>

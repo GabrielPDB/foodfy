@@ -7,6 +7,21 @@ module.exports = {
     const results = await Recipe.all()
     const recipes = results.rows
 
+    const newRecipes = recipes.map(async recipe => {
+      let result = (await Recipe.getFirstImageOfRecipe(recipe.id)).rows[0]
+
+      recipe.image = {
+        ...result,
+        src: `${req.protocol}://${req.headers.host}${result.path.replace(
+          'public',
+          ''
+        )}`
+      }
+      return recipe
+    })
+
+    await Promise.all(newRecipes)
+
     return res.render('admin/recipes/index', { recipes })
   },
   async create(req, res) {

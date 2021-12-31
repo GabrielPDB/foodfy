@@ -45,5 +45,12 @@ module.exports = {
     } catch (err) {
       console.error(err)
     }
+  },
+  findFileById(id) {
+    try {
+      return db.query('SELECT * FROM files WHERE id = $1', [id])
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

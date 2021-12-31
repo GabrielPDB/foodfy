@@ -2,7 +2,13 @@
 {% block content %}
   <section class="recipe container">
     <div class="recipe-header">
-      <img src="{{ recipe.image }}" alt="">
+      {% if not files[0] %}
+        <img src="http://placehold.it/500x500?text=PRODUTO-SEM-FOTO"/>
+      {% else %}
+        {% for file in files %}
+          <img src="{{ file.src }}" alt="{{ file.name }}">
+          {% endfor %}
+        {% endif %}
         <div class="title">
           <h1>{{ recipe.title }}</h1>
           <h3>{{ recipe.chef_name }}</h3>
