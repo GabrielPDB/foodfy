@@ -53,8 +53,16 @@ module.exports = {
     const results = await Recipe.find(id)
     const recipe = results.rows[0]
     const chefs = (await Recipe.getChefsToSelectOptions()).rows
+    let files = (await Recipe.getRecipeFiles(id)).rows
+    files = files.map(file => ({
+      ...file,
+      src: `${req.protocol}://${req.headers.host}${file.path.replace(
+        'public',
+        ''
+      )}`
+    }))
 
-    return res.render('admin/recipes/edit', { recipe, chefs })
+    return res.render('admin/recipes/edit', { recipe, chefs, files })
   },
   async post(req, res) {
     const keys = Object.keys(req.body)
@@ -82,12 +90,13 @@ module.exports = {
     let results = await Recipe.create(req.body)
     const recipeId = results.rows[0].id
 
-    req.files.forEach(async file => {
+    const newFilesPromise = req.files.map(async file => {
       results = await File.create(file)
       const fileId = results.rows[0].id
 
-      results = await File.insertRecipeFile(fileId, recipeId)
+      await File.insertRecipeFile(fileId, recipeId)
     })
+    await Promise.all(newFilesPromise)
 
     /*  const filesPromise = req.files.map(file =>
       File.create({
@@ -100,13 +109,28 @@ module.exports = {
   },
   async put(req, res) {
     const keys = Object.keys(req.body)
-
     for (key of keys) {
-      if (req.body[key] == '') {
+      if (req.body[key] == '' && key != 'removed_files') {
         if (!req.body['information'] == '') {
           return res.send('Please, fill all fields')
         }
       }
+    }
+
+    if (req.files.length != 0) {
+      const newFilesPromise = req.files.map(file => File.create({ ...file }))
+
+      await Promise.all(newFilesPromise)
+    }
+
+    if (req.body.removed_files) {
+      const removedFiles = req.body.removed_files.split(',')
+      const lastIndex = removedFiles.length - 1
+      removedFiles.splice(lastIndex, 1)
+
+      const removedFilesPromise = removedFiles.map(id => File.delete(id))
+
+      await Promise.all(removedFilesPromise)
     }
 
     req.body.ingredients = req.body.ingredients.map(ingredient => {
@@ -116,15 +140,19 @@ module.exports = {
       return `"${preparation}"`
     })
 
-    Recipe.update(req.body, () => {
-      return res.redirect(`/admin/recipes/${req.body.id}`)
-    })
+    await Recipe.update(req.body)
+
+    return res.redirect(`/admin/recipes/${req.body.id}`)
   },
   async delete(req, res) {
     const { id } = req.body
 
-    Recipe.delete(id, () => {
-      return res.redirect('/admin/recipes')
-    })
+    let files = (await File.deleteAllFilesByRecipeId(id)).rows
+
+    const deleteFilesPromise = files.map(file => File.delete(file.file_id))
+
+    await Recipe.delete(id)
+
+    return res.redirect('/admin/recipes')
   }
 }

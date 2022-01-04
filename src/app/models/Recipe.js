@@ -59,8 +59,9 @@ module.exports = {
       console.error(error)
     }
   },
-  update(data, callback) {
-    const query = `
+  update(data) {
+    try {
+      const query = `
       UPDATE recipes SET
         chef_id = ($1),
         title = ($2),
@@ -70,13 +71,12 @@ module.exports = {
       WHERE id = $4
     `
 
-    const values = [data.chef_id, data.title, data.information, data.id]
+      const values = [data.chef_id, data.title, data.information, data.id]
 
-    db.query(query, values, (err, results) => {
-      if (err) throw `Database error! ${err}`
-
-      callback()
-    })
+      return db.query(query, values)
+    } catch (error) {
+      console.error(error)
+    }
   },
   getChefsToSelectOptions() {
     /* db.query(`SELECT * FROM chefs`, (err, results) => {
@@ -90,18 +90,17 @@ module.exports = {
       console.error(error)
     }
   },
-  delete(id, callback) {
-    db.query(
-      `
-      DELETE FROM recipes WHERE id = $1
-    `,
-      [id],
-      (err, results) => {
-        if (err) throw `Database error! ${err}`
-
-        callback()
-      }
-    )
+  delete(id) {
+    try {
+      return db.query(
+        `
+        DELETE FROM recipes WHERE id = $1
+      `,
+        [id]
+      )
+    } catch (error) {
+      console.error(error)
+    }
   },
   getRecipeFiles(recipe_id) {
     return db.query(

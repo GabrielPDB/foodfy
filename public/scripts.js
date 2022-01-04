@@ -196,7 +196,7 @@ const ImagesUpload = {
     if (photoDiv.id) {
       const removedFiles = document.querySelector('input[name="removed_files"]')
       if (removedFiles) {
-        removedFiles.value += `${photoDiv.id}`
+        removedFiles.value += `${photoDiv.id},` // 1,2,3,4,5,...
       }
     }
 

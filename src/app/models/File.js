@@ -52,5 +52,13 @@ module.exports = {
     } catch (error) {
       console.error(error)
     }
+  },
+  deleteAllFilesByRecipeId(id) {
+    try {
+      return db.query(
+        `DELETE FROM recipe_files WHERE recipe_id = $1 RETURNING file_id`,
+        [id]
+      )
+    } catch (error) {}
   }
 }

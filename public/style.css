@@ -352,8 +352,9 @@ footer h6 {
 }
 
 .recipes.admin .cards .card .card-image img {
+  width: 172px;
   height: 80px;
-  max-width: 172px;
+  object-fit: cover;
 }
 
 .chefs.admin .cards .card .card-image img {
