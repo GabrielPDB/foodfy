@@ -2,54 +2,65 @@
 {% block content %}
   <section class="recipe container">
     <div class="recipe-header">
-      {% if not files[0] %}
-        <img src="http://placehold.it/500x500?text=PRODUTO-SEM-FOTO"/>
-      {% else %}
-        {% for file in files %}
-          <img src="{{ file.src }}" alt="{{ file.name }}">
-          {% endfor %}
-        {% endif %}
+      <div class="gallery container">
+        <div class="gallery-highlight">
+          {% if not files[0] %}
+            <img src="http://placehold.it/500x500?text=PRODUTO-SEM-FOTO"/>
+          {% else %}
+            <img src="{{ files[0].src }}" alt="{{ files[0].name }}"/>
+          {% endif %}
+        </div>
+        <div class="gallery-preview">
+          {% if not files[0] %}
+            <img src="http://placehold.it/500x500?text=PRODUTO-SEM-FOTO"/>
+          {% else %}
+            {% for file in files %}
+              <img src="{{ file.src }}" alt="{{ file.name }}" {% if loop.index0 == 0 %} class="active" {% endif %} onclick="ImageGallery.setImage(event)"/>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+      <div class="title">
+        <h1>{{ recipe.title }}</h1>
+        <h3>{{ recipe.chef_name }}</h3>
+      </div>
+    </div>
+    <div class="recipe-infos">
+      <div class="ingredients">
         <div class="title">
-          <h1>{{ recipe.title }}</h1>
-          <h3>{{ recipe.chef_name }}</h3>
+          <h2>Ingredientes</h2>
+          <button onclick="showHideContentOfRecipe('ingredients')">Esconder</button>
+        </div>
+        <div class="content">
+          <ul>
+            {% for ingredient in recipe.ingredients %}
+              <li>{{ ingredient }}</li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
-      <div class="recipe-infos">
-        <div class="ingredients">
-          <div class="title">
-            <h2>Ingredientes</h2>
-            <button onclick="showHideContentOfRecipe('ingredients')">Esconder</button>
-          </div>
-          <div class="content">
-            <ul>
-              {% for ingredient in recipe.ingredients %}
-                <li>{{ ingredient }}</li>
-              {% endfor %}
-            </ul>
-          </div>
+      <div class="preparation">
+        <div class="title">
+          <h2>Modo de preparo</h2>
+          <button onclick="showHideContentOfRecipe('preparation')">Esconder</button>
         </div>
-        <div class="preparation">
-          <div class="title">
-            <h2>Modo de preparo</h2>
-            <button onclick="showHideContentOfRecipe('preparation')">Esconder</button>
-          </div>
-          <div class="content">
-            <ul>
-              {% for step in recipe.preparation %}
-                <li>{{ step }}</li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-        <div class="information">
-          <div class="title">
-            <h2>Informações adicionais</h2>
-            <button onclick="showHideContentOfRecipe('information')">Esconder</button>
-          </div>
-          <div class="content">
-            <p>{{ recipe.information }}</p>
-          </div>
+        <div class="content">
+          <ul>
+            {% for step in recipe.preparation %}
+              <li>{{ step }}</li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
-    </section>
-  {% endblock content %}
+      <div class="information">
+        <div class="title">
+          <h2>Informações adicionais</h2>
+          <button onclick="showHideContentOfRecipe('information')">Esconder</button>
+        </div>
+        <div class="content">
+          <p>{{ recipe.information }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

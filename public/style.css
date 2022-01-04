@@ -582,3 +582,43 @@ form.adminForm .formItem .files-upload .images-preview .photo i {
 form.adminForm .formItem .files-upload .images-preview .photo:hover i {
   opacity: 1;
 }
+
+/* IMAGE GALLERY */
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.gallery-highlight {
+  width: 100%;
+}
+
+.gallery-highlight img {
+  width: 100%;
+}
+
+.gallery-preview {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-self: flex-end;
+}
+
+.gallery-preview img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 3.5px;
+  border: 1px solid #dddddd;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: 400ms;
+}
+
+.gallery-preview img.active,
+.gallery-preview img:hover {
+  opacity: 1;
+}
