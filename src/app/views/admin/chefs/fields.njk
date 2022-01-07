@@ -4,5 +4,27 @@
 </div>
 <div class="formItem">
   <h5>Avatar</h5>
-  <input type="url" name="avatar_url" value="{{ chef.avatar_url }}" placeholder="http://..."/>
-</div>
+  <div class="files-upload">
+    <div class="images-upload">
+      <input
+        type="file"
+        name="photos"
+        id="images-input"
+        multiple
+        accept="image/*"
+        onchange="ImagesUpload.handleChefFileInput(event)"/>
+      <i class="material-icons">add</i>
+    </div>
+    <div class="images-preview" {% if files %} style="position:absolute" {% endif %}>
+      {% if files %}
+        {% for image in files %}
+          <div class="photo" id="{{ image.file_id }}">
+            <img src="{{ image.src }}" alt="{{ image.name }}"/>
+            <i class="material-icons" onclick="ImagesUpload.removeOldPhoto(event)">close</i>
+          </div>
+        {% endfor %}
+        <input type="hidden" name="removed_files"/>
+      {% endif %}
+    </div>
+  </div>
+</div></div>

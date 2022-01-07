@@ -21,13 +21,13 @@ module.exports = {
       const query = `
       INSERT INTO chefs (
         name,
-        avatar_url,
-        created_at
+        created_at,
+        file_id
       ) VALUES ($1, $2, $3)
       RETURNING id
     `
 
-      const values = [data.name, data.avatar_url, data.created_at]
+      const values = [data.name, data.created_at, data.file_id]
 
       return db.query(query, values)
     } catch (error) {
@@ -63,16 +63,30 @@ module.exports = {
       console.error(error)
     }
   },
+  getChefFile(chef_id) {
+    try {
+      return db.query(
+        `
+          SELECT * FROM files
+          LEFT JOIN chefs ON (files.id = chefs.file_id)
+          WHERE chefs.id = $1
+        `,
+        [chef_id]
+      )
+    } catch (error) {
+      console.error(error)
+    }
+  },
   update(data) {
     try {
       const query = `
     UPDATE chefs SET
       name = ($1),
-      avatar_url = ($2)
+      file_id = ($2)
     WHERE id = $3
   `
 
-      const values = [data.name, data.avatar_url, data.id]
+      const values = [data.name, data.file_id, data.id]
 
       return db.query(query, values)
     } catch (error) {

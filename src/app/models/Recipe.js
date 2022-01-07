@@ -103,14 +103,18 @@ module.exports = {
     }
   },
   getRecipeFiles(recipe_id) {
-    return db.query(
-      `
-        SELECT * FROM files
-        LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
-        WHERE recipe_files.recipe_id = $1
-      `,
-      [recipe_id]
-    )
+    try {
+      return db.query(
+        `
+          SELECT * FROM files
+          LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
+          WHERE recipe_files.recipe_id = $1
+        `,
+        [recipe_id]
+      )
+    } catch (error) {
+      console.error(error)
+    }
   },
   async getFirstImageOfRecipe(id) {
     try {

@@ -99,13 +99,13 @@ function confirmDelete() {
 const ImagesUpload = {
   input: '',
   preview: document.querySelector('.images-preview'),
-  uploadLimit: 5,
+  /* uploadLimit: 5, */
   files: [],
   handleFileInput(event) {
     const { files: fileList } = event.target
     ImagesUpload.input = event.target
 
-    if (ImagesUpload.hasLimit(event)) return
+    if (ImagesUpload.hasLimit(event, 5)) return
 
     Array.from(fileList).forEach(file => {
       ImagesUpload.files.push(file)
@@ -127,12 +127,39 @@ const ImagesUpload = {
 
     ImagesUpload.input.files = ImagesUpload.getAllFiles()
   },
-  hasLimit(event) {
-    const { uploadLimit, input, preview } = ImagesUpload
+  handleChefFileInput(event) {
+    const { files: fileList } = event.target
+    ImagesUpload.input = event.target
+
+    if (ImagesUpload.hasLimit(event, 1)) return
+
+    Array.from(fileList).forEach(file => {
+      ImagesUpload.files.push(file)
+
+      const reader = new FileReader()
+
+      reader.readAsDataURL(file)
+
+      reader.onload = () => {
+        const image = new Image()
+
+        image.src = String(reader.result)
+
+        const div = ImagesUpload.getContainer(image)
+
+        ImagesUpload.preview.appendChild(div)
+        ImagesUpload.preview.style.position = 'absolute'
+      }
+    })
+
+    ImagesUpload.input.files = ImagesUpload.getAllFiles()
+  },
+  hasLimit(event, limit) {
+    const { input, preview } = ImagesUpload
     const { files: fileList } = input
 
-    if (fileList.length > uploadLimit) {
-      alert(`Envie no máximo ${uploadLimit} imagens`)
+    if (fileList.length > limit) {
+      alert(`Envie no máximo ${limit} imagens`)
       event.preventDefault()
       return true
     }
@@ -146,7 +173,7 @@ const ImagesUpload = {
 
     const totalPhotos = fileList.length + photosDiv.length
 
-    if (totalPhotos > uploadLimit) {
+    if (totalPhotos > limit) {
       alert(`Você atingiu o limite máximo de fotos`)
       event.preventDefault()
       return true

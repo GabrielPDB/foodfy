@@ -62,6 +62,8 @@ module.exports = {
       )}`
     }))
 
+    console.log(files)
+
     return res.render('admin/recipes/edit', { recipe, chefs, files })
   },
   async post(req, res) {
@@ -128,7 +130,13 @@ module.exports = {
       const lastIndex = removedFiles.length - 1
       removedFiles.splice(lastIndex, 1)
 
-      const removedFilesPromise = removedFiles.map(id => File.delete(id))
+      let removedFilesPromise = removedFiles.map(id =>
+        File.deleteRecipeFileById(id)
+      )
+
+      await Promise.all(removedFilesPromise)
+
+      removedFilesPromise = removedFiles.map(id => File.delete(id))
 
       await Promise.all(removedFilesPromise)
     }
@@ -150,6 +158,8 @@ module.exports = {
     let files = (await File.deleteAllFilesByRecipeId(id)).rows
 
     const deleteFilesPromise = files.map(file => File.delete(file.file_id))
+
+    await Promise.all(deleteFilesPromise)
 
     await Recipe.delete(id)
 

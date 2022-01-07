@@ -53,11 +53,19 @@ module.exports = {
       console.error(error)
     }
   },
-  deleteAllFilesByRecipeId(id) {
+  deleteAllFilesByRecipeId(recipeId) {
     try {
       return db.query(
         `DELETE FROM recipe_files WHERE recipe_id = $1 RETURNING file_id`,
-        [id]
+        [recipeId]
+      )
+    } catch (error) {}
+  },
+  deleteRecipeFileById(fileId) {
+    try {
+      return db.query(
+        `DELETE FROM recipe_files WHERE file_id = $1 RETURNING file_id`,
+        [fileId]
       )
     } catch (error) {}
   }
