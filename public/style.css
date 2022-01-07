@@ -359,6 +359,8 @@ footer h6 {
 
 .chefs.admin .cards .card .card-image img {
   width: 64px;
+  height: 64px;
+  object-fit: cover;
   border-radius: 50%;
 }
 
@@ -411,7 +413,6 @@ footer h6 {
 
 .chef-image img {
   width: 200px;
-  border-radius: 50%;
 }
 
 .chef-title {
