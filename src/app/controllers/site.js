@@ -88,5 +88,21 @@ exports.recipeInfo = async (req, res) => {
 
 exports.chefs = async (req, res) => {
   const chefs = (await Chef.all()).rows
+
+  const newChefsPromise = chefs.map(async chef => {
+    let result = (await Chef.getChefFile(chef.id)).rows[0]
+
+    chef.image = {
+      ...result,
+      src: `${req.protocol}://${req.headers.host}${result.path.replace(
+        'public',
+        ''
+      )}`
+    }
+    return chef
+  })
+
+  await Promise.all(newChefsPromise)
+
   return res.render('site/chefs', { chefs })
 }

@@ -130,7 +130,7 @@ module.exports = {
       const lastIndex = removedFiles.length - 1
       removedFiles.splice(lastIndex, 1)
 
-      let removedFilesPromise = removedFiles.map(id =>
+      let removedFilesPromise = removedFiles.map(async id =>
         File.deleteRecipeFileById(id)
       )
 
