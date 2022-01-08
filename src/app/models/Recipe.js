@@ -9,6 +9,7 @@ module.exports = {
       SELECT recipes.id, recipes.title, chefs.name AS chef_name 
       FROM recipes
       LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
+      ORDER BY recipes.created_at DESC
     `)
     } catch (err) {
       console.error(err)
@@ -49,10 +50,11 @@ module.exports = {
     try {
       return db.query(
         `
-        SELECT recipes.id, recipes.title, recipes.image, chefs.name AS chef_name 
+        SELECT recipes.id, recipes.title, chefs.name AS chef_name 
         FROM recipes
         LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
         WHERE recipes.title ILIKE '%${search}%'
+        ORDER BY recipes.updated_at DESC
       `
       )
     } catch (error) {

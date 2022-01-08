@@ -62,8 +62,6 @@ module.exports = {
       )}`
     }))
 
-    console.log(files)
-
     return res.render('admin/recipes/edit', { recipe, chefs, files })
   },
   async post(req, res) {
