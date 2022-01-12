@@ -6,6 +6,7 @@ a.button {
   cursor: pointer;
   padding: 9px 20px;
   text-decoration: none;
+  text-align: center;
 }
 
 button.buttonDelete {
@@ -16,7 +17,8 @@ button.buttonCancel {
   background: #8a8a8a;
 }
 
-button.buttonConfirm {
+button.buttonConfirm,
+a.button.buttonConfirm {
   background: #6558c3;
 }
 
@@ -34,4 +36,28 @@ button.buttonShowHide {
   font-weight: bold;
   color: #999999;
   background: none;
+}
+
+.user .cards .card .card-buttons a.button.buttonDelete,
+.user .cards .card .card-buttons button.buttonDelete {
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: #f55a5a;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  padding: 0;
+}
+
+.user .cards .card .card-buttons a.button.buttonConfirm,
+.user .cards .card .card-buttons button.buttonConfirm {
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: #6558c3;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  padding: 0;
 }

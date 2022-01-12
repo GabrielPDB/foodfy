@@ -1,6 +1,7 @@
 module.exports = {
   async list(req, res) {
-    return res.send('user list')
+    // pegar todos os usuários
+    return res.render('admin/users/list')
   },
   async post(req, res) {
     return res.send('user post')
@@ -8,7 +9,14 @@ module.exports = {
   async create(req, res) {
     return res.render('admin/users/create')
   },
-  async put(req, res) {},
-  async edit(req, res) {},
-  async delete(req, res) {}
+  async put(req, res) {
+    return res.send('user put')
+  },
+  async edit(req, res) {
+    //pegar usuário
+    return res.render('admin/users/edit')
+  },
+  async delete(req, res) {
+    return res.send('user delete')
+  }
 }

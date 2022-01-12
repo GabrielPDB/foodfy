@@ -3,14 +3,14 @@
   <section class="user container">
     <div class="user-header">
       <div class="action-header">
-        <h2>Criando Usuário</h2>
+        <h2>Criar Usuário</h2>
         <div class="buttons">
-          <button type="submit" form="createRecipeForm" class="buttonConfirm">Salvar</button>
-          <button type="submit" form="createRecipeForm" class="buttonCancel">Cancelar</button>
+          <button type="submit" form="createUserForm" class="buttonConfirm">Salvar</button>
+          <button type="submit" form="createUserForm" class="buttonCancel">Cancelar</button>
         </div>
       </div>
     </div>
-    <form action="/admin/users" method="post" id="createUserForm" class="adminForm">
+    <form action="/admin/users" method="post" id="createUserForm" class="adminForm userForm">
       {% include 'admin/users/fields.njk' %}
     </form>
   </section>

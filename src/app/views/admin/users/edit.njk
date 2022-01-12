@@ -1,0 +1,17 @@
+{% extends 'admin/layout.njk' %}
+{% block content %}
+  <section class="user container">
+    <div class="user-header">
+      <div class="action-header">
+        <h2>Atualizar Usuário</h2>
+        <div class="buttons">
+          <button type="submit" form="editUserForm" class="buttonDelete">Deletar</button>
+          <button type="submit" form="editUserForm" class="buttonConfirm">Salvar</button>
+        </div>
+      </div>
+    </div>
+    <form action="/admin/users?_method=PUT" method="post" id="editUserForm" class="adminForm userForm">
+      {% include 'admin/users/fields.njk' %}
+    </form>
+  </section>
+{% endblock content %}

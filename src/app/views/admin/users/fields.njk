@@ -1,12 +1,12 @@
 <div class="formItem">
   <h5>Nome</h5>
-  <input type="text" name="name" value="{{ user.name }}" placeholder="Digite o nome completo"/>
+  <input type="text" name="name" value="{{ user.name }}" placeholder="Digite o nome completo" value="{{ user.name }}"/>
 </div>
 <div class="formItem">
   <h5>Email</h5>
-  <input type="email" name="email" value="{{ user.email }}" placeholder="Digite o email"/>
+  <input type="email" name="email" value="{{ user.email }}" placeholder="Digite o email" value="{{ user.email }}"/>
 </div>
 <div class="formItem toggleAdmin">
-  <input type="checkbox" name="admin"/>
+  <input type="checkbox" name="admin" {% if user.is_admin %} checked {% endif %}/>
   <p>Administrador</p>
 </div>

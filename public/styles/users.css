@@ -1,24 +1,57 @@
-.user-header .action-header button {
+.user-header .action-header button,
+.user-header .action-header a.button {
   width: 140px;
 }
 
-#createUserForm {
+.userForm {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-#createUserForm .toggleAdmin {
+.userForm.adminForm .toggleAdmin {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-#createUserForm .toggleAdmin input[type='checkbox'] {
+.userForm.adminForm .toggleAdmin input[type='checkbox'] {
   width: 15px;
   height: 15px;
 }
 
-#createUserForm .toggleAdmin p {
+.userForm .toggleAdmin p {
   font-weight: bold;
   font-size: 1rem;
+}
+
+.user.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  font-family: Helvetica;
+  gap: 52px;
+}
+
+.user.cards .card {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.user.cards .card .card-name h3 {
+  font-size: 1.125rem;
+  color: #111111;
+  margin-bottom: 4px;
+}
+
+.user.cards .card .card-email h3 {
+  font-size: 0.875rem;
+  color: #777777;
+}
+
+.user.cards .card .card-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 1rem;
 }
