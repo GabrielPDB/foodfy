@@ -15,22 +15,27 @@ module.exports = {
       console.error(err)
     }
   },
-  create(data) {
-    const query = `
+  async create(data) {
+    try {
+      const query = `
       INSERT INTO recipes (
         chef_id,
+        user_id,
         title,
         ingredients,
         preparation,
-        information,
-        created_at
-      ) VALUES ($1, $2, '{${data.ingredients}}', '{${data.preparation}}', $3, $4)
+        information
+      ) VALUES ($1,1, $2, '{${data.ingredients}}', '{${data.preparation}}', $3)
       RETURNING id
     `
 
-    const values = [data.chef_id, data.title, data.information, data.created_at]
+      const values = [data.chef_id, data.title, data.information]
 
-    return db.query(query, values)
+      const results = await db.query(query, values)
+      return results
+    } catch (error) {
+      console.error(error)
+    }
   },
   find(id) {
     try {

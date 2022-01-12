@@ -85,7 +85,6 @@ module.exports = {
     req.body.preparation = req.body.preparation.map(
       preparation => `"${preparation}"`
     )
-    req.body.created_at = date(Date.now()).iso
 
     let results = await Recipe.create(req.body)
     const recipeId = results.rows[0].id
@@ -94,16 +93,11 @@ module.exports = {
       results = await File.create(file)
       const fileId = results.rows[0].id
 
-      await File.insertRecipeFile(fileId, recipeId)
+      results = await File.insertRecipeFile(fileId, recipeId)
+      return results.rows[0].id
     })
-    await Promise.all(newFilesPromise)
 
-    /*  const filesPromise = req.files.map(file =>
-      File.create({
-        ...file,
-        recipe_id: recipeId
-      })
-    ) */
+    await Promise.all(newFilesPromise)
 
     return res.redirect(`/admin/recipes/${recipeId}`)
   },

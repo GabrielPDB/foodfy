@@ -2,7 +2,7 @@ const db = require('../../config/db')
 const fs = require('fs')
 
 module.exports = {
-  create({ filename, path }) {
+  async create({ filename, path }) {
     try {
       const query = `
     INSERT INTO files (
@@ -13,12 +13,13 @@ module.exports = {
 
       const values = [filename, path]
 
-      return db.query(query, values)
+      const results = await db.query(query, values)
+      return results
     } catch (err) {
       console.error(err)
     }
   },
-  insertRecipeFile(fileId, recipeId) {
+  async insertRecipeFile(fileId, recipeId) {
     try {
       const query = `
       INSERT INTO recipe_files (
@@ -29,7 +30,8 @@ module.exports = {
 
       const values = [recipeId, fileId]
 
-      return db.query(query, values)
+      const results = await db.query(query, values)
+      return results
     } catch (err) {
       console.error(err)
     }
