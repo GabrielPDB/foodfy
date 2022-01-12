@@ -4,6 +4,7 @@ module.exports = {
     return res.render('admin/users/list')
   },
   async post(req, res) {
+    console.log(req.body)
     return res.send('user post')
   },
   async create(req, res) {

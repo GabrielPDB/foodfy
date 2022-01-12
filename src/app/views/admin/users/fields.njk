@@ -7,6 +7,6 @@
   <input type="email" name="email" value="{{ user.email }}" placeholder="Digite o email" value="{{ user.email }}"/>
 </div>
 <div class="formItem toggleAdmin">
-  <input type="checkbox" name="admin" {% if user.is_admin %} checked {% endif %}/>
+  <input type="checkbox" name="is_admin" {% if user.is_admin %} checked {% endif %}/>
   <p>Administrador</p>
 </div>
