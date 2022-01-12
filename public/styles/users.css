@@ -1,3 +1,24 @@
 .user-header .action-header button {
   width: 140px;
 }
+
+#createUserForm {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#createUserForm .toggleAdmin {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#createUserForm .toggleAdmin input[type='checkbox'] {
+  width: 15px;
+  height: 15px;
+}
+
+#createUserForm .toggleAdmin p {
+  font-weight: bold;
+  font-size: 1rem;
+}
