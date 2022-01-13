@@ -88,7 +88,10 @@ header.headerSite form.search input {
 
 header.headerAdmin {
   background: black;
-  margin-bottom: 50px;
+}
+
+header.headerAdmin ~ section {
+  margin-top: 15px;
 }
 
 header.headerAdmin a {
