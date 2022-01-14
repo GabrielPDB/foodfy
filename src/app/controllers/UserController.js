@@ -1,6 +1,7 @@
 const crypto = require('crypto')
 const { hash } = require('bcryptjs')
 const User = require('../models/User')
+const mailer = require('../../lib/mailer')
 
 module.exports = {
   async list(req, res) {
@@ -22,7 +23,19 @@ module.exports = {
 
     let userId = await User.create(user)
 
-    /* enviar senha por email */
+    /* send password by email */
+
+    await mailer.sendMail({
+      to: user.email,
+      from: 'no-reply@foodfy.com.br',
+      subject: 'Aqui está seu login do Foodfy',
+      html: `
+        <h2>Bem vindo ao Foodfy</h2>
+        <p>Aqui estão seus dados para login</p>
+        <p>Email: <strong>${user.email}</strong></p>
+        <p>Senha: <strong>${password}</strong></p>
+      `
+    })
 
     return res.redirect('/admin/users')
   },
