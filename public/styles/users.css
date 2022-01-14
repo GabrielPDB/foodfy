@@ -3,7 +3,7 @@
   width: 140px;
 }
 
-.userForm {
+.userForm.adminForm.userForm {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }

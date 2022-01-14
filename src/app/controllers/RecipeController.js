@@ -89,11 +89,11 @@ module.exports = {
     let results = await Recipe.create(req.body)
     const recipeId = results.rows[0].id
 
-    const newFilesPromise = req.files.map(async file => {
-      results = await File.create(file)
+    const newFilesPromise = req.files.map(file => {
+      results = File.create(file)
       const fileId = results.rows[0].id
 
-      results = await File.insertRecipeFile(fileId, recipeId)
+      results = File.insertRecipeFile(fileId, recipeId)
       return results.rows[0].id
     })
 

@@ -84,12 +84,12 @@ function addPreparation() {
   preparation.appendChild(newInput)
 }
 
-function confirmDelete() {
-  const formDelete = document.querySelector('#deleteRecipeForm')
+function confirmDelete(event) {
+  const formDelete = document.querySelector(
+    `#${event.target.getAttribute('form')}`
+  )
   formDelete.addEventListener('submit', event => {
-    const confirmation = confirm(
-      'Tem certeza de que deseja deletar essa receita?'
-    )
+    const confirmation = confirm('Tem certeza de que deseja deletar?')
     if (!confirmation) {
       event.preventDefault()
     }

@@ -40,6 +40,32 @@ async function post(req, res, next) {
   }
 }
 
+async function put(req, res, next) {
+  try {
+    if (!isAllFieldsFilled(req.body)) {
+      return res.render('admin/users/edit', {
+        user: req.body,
+        error: 'Por favor, preencha todos os campos'
+      })
+    }
+    let { id } = req.body
+
+    const user = await User.findById(id)
+
+    if (!user) {
+      return res.render('admin/users/edit', {
+        user: req.body,
+        error: 'Usuário não encontrado!'
+      })
+    }
+
+    next()
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 module.exports = {
-  post
+  post,
+  put
 }

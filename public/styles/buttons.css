@@ -45,7 +45,7 @@ button.buttonShowHide {
   color: #f55a5a;
   background: none;
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: none !important;
   text-align: center;
   padding: 0;
 }
@@ -57,7 +57,7 @@ button.buttonShowHide {
   color: #6558c3;
   background: none;
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: none !important;
   text-align: center;
   padding: 0;
 }

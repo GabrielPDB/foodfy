@@ -5,13 +5,14 @@
       <div class="action-header">
         <h2>Atualizar Usuário</h2>
         <div class="buttons">
-          <button type="submit" form="editUserForm" class="buttonDelete">Deletar</button>
+          <button type="submit" form="deleteUser{{ user.id }}Form" onclick="confirmDelete(event)" class="buttonDelete">Deletar</button>
           <button type="submit" form="editUserForm" class="buttonConfirm">Salvar</button>
         </div>
       </div>
     </div>
-    <form action="/admin/users?_method=PUT" method="post" id="editUserForm" class="adminForm userForm">
-      {% include 'admin/users/fields.njk' %}
+    <form action="/admin/users/{{ user.id }}?_method=PUT" method="post" id="editUserForm" class="adminForm userForm">
+      {% include 'admin/users/fields.njk' %} <input type="hidden" name="id" value="{{ user.id }}"/>
     </form>
+    <form action="/admin/users/{{ user.id }}?_method=DELETE" method="post" id="deleteUser{{ user.id }}Form"><input type="hidden" name="id" value="{{ user.id }}"/> </form>
   </section>
 {% endblock content %}

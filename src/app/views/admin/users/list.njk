@@ -19,11 +19,11 @@
             <h3>{{ user.email }}</h3>
           </div>
           <div class="card-buttons">
-            <a href="/admin/users/{{ user.id }}/edit" class="button">Editar</a>
-            <a href="/admin/users/{{ user.id }}" class="button">Remover</a>
-            <button type="submit" form="deleteUserForm">Remover</button>
+            <a href="/admin/users/{{ user.id }}/edit" class="button buttonConfirm">Editar</a>
+            {# <a href="/admin/users/{{ user.id }}" class="button">Remover</a> #}
+            <button type="submit" form="deleteUser{{ user.id }}Form" onclick="confirmDelete(event)" class="buttonDelete">Remover</button>
           </div>
-          <form action="/admin/users/{{ user.id }}?_method=DELETE" method="get" id="deleteUserForm"></form>
+          <form action="/admin/users/{{ user.id }}?_method=DELETE" method="post" id="deleteUser{{ user.id }}Form"><input type="hidden" name="id" value="{{ user.id }}"/> </form>
         </div>
       {% endfor %}
     </div>
