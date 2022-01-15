@@ -40,6 +40,37 @@ async function post(req, res, next) {
   }
 }
 
+async function putLoggedUser(req, res, next) {
+  try {
+    if (!isAllFieldsFilled(req.body)) {
+      return res.render('admin/profile/index', {
+        user: req.body,
+        error: 'Por favor, preencha todos os campos'
+      })
+    }
+
+    const user = await User.findById(req.session.userId)
+
+    if (!user) {
+      return res.render('admin/profile/index', {
+        user: req.body,
+        error: 'Usuário não encontrado!'
+      })
+    }
+
+    const passed = await compare(req.body.password, user.password)
+
+    if (!passed)
+      return res.render('admin/profile/index', {
+        user: req.body,
+        error: 'Senha incorreta'
+      })
+
+    next()
+  } catch (error) {
+    console.error(error)
+  }
+}
 async function put(req, res, next) {
   try {
     if (!isAllFieldsFilled(req.body)) {
@@ -67,5 +98,6 @@ async function put(req, res, next) {
 
 module.exports = {
   post,
-  put
+  put,
+  putLoggedUser
 }

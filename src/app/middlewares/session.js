@@ -18,9 +18,15 @@ function onlyUsers(req, res, next) {
   next()
 }
 
-function onlyAdmin(req, res, next) {
-  if (!User.isAdmin(req.session.userId)) {
-    return res.redirect('/login')
+async function onlyAdmin(req, res, next) {
+  const isAdmin = await User.isAdmin(req.session.userId)
+
+  if (!isAdmin) {
+    let users = await User.getAllUsersToList()
+    return res.render('admin/users/list', {
+      users,
+      error: 'Você não tem permissão!'
+    })
   }
 
   next()

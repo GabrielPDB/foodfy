@@ -91,6 +91,19 @@ module.exports = {
       console.error(error)
     }
   },
+  async updateProfile(user) {
+    try {
+      const query = `
+        UPDATE users SET
+          name = '${user.name}',
+          email = '${user.email}'
+        WHERE id = ${user.id}
+      `
+      return await db.query(query)
+    } catch (error) {
+      console.error(error)
+    }
+  },
   async delete(id) {
     try {
       const query = `
