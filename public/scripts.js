@@ -96,6 +96,13 @@ function confirmDelete(event) {
   })
 }
 
+function confirmLogout(event) {
+  const confirmation = confirm('Tem certeza de que deseja sair?')
+  if (!confirmation) {
+    event.preventDefault()
+  }
+}
+
 const ImagesUpload = {
   input: '',
   preview: document.querySelector('.images-preview'),
