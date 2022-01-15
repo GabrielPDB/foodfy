@@ -1,12 +1,18 @@
 const express = require('express')
 const routes = express.Router()
 
-const UserController = require('../app/controllers/UserController')
-const UserValidator = require('../app/validators/UserValidator')
-
 const SessionController = require('../app/controllers/SessionController')
-/* const SessionValidator = require('../app/validators/SessionValidator') */
+const SessionValidator = require('../app/validators/SessionValidator')
 
-routes.get('/login', SessionController.login)
+const { isLoggedRedirectToUsers } = require('../app/middlewares/session')
+
+/* LOGIN / LOGOUT */
+routes.get('/login', isLoggedRedirectToUsers, SessionController.loginForm)
+routes.post('/login', SessionValidator.login, SessionController.login)
+routes.get('/logout', SessionController.logout)
+
+/* FORGOT / RESET */
+routes.get('/forgot', SessionController.forgot)
+routes.get('/reset', SessionController.reset)
 
 module.exports = routes

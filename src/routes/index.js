@@ -9,6 +9,8 @@ const users = require('./users')
 const profile = require('./profile')
 const session = require('./session')
 
+const { onlyUsers } = require('../app/middlewares/session')
+
 /* SITE */
 
 routes.get('/', (req, res) => {
@@ -20,13 +22,13 @@ routes.use(session)
 
 /* ADMIN */
 
-routes.get('/admin', (req, res) => {
+routes.get('/admin', onlyUsers, (req, res) => {
   return res.redirect('/admin/recipes')
 })
 
-routes.use('/admin/recipes', recipes)
-routes.use('/admin/chefs', chefs)
-routes.use('/admin/users', users)
-routes.use('/admin/profile', profile)
+routes.use('/admin/recipes', onlyUsers, recipes)
+routes.use('/admin/chefs', onlyUsers, chefs)
+routes.use('/admin/users', onlyUsers, users)
+routes.use('/admin/profile', onlyUsers, profile)
 
 module.exports = routes

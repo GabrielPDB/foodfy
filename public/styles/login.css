@@ -1,0 +1,48 @@
+.loginHeader {
+  margin-top: 35px;
+  margin-bottom: 100px;
+}
+
+.loginContainer {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.loginContainer h2 {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+form.loginForm .formItem {
+  gap: 10px;
+}
+
+form.loginForm .actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+form.loginForm .actions a {
+  font-family: Helvetica, sans-serif;
+  font-size: 1rem;
+  color: #969696;
+  text-decoration: none;
+}
+
+form.loginForm .actions button {
+  justify-self: end;
+}
+
+form.loginForm .formItem input.inputError {
+  animation: inputError 7s;
+}
+
+@keyframes inputError {
+  0% {
+    border: 1px solid red;
+  }
+  100% {
+    border: 1px solid #dddddd;
+  }
+}

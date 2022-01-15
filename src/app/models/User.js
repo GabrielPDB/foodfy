@@ -100,5 +100,12 @@ module.exports = {
     } catch (error) {
       console.error(error)
     }
+  },
+  async isAdmin(id) {
+    let query = `SELECT is_admin FROM users WHERE id = ${id}`
+
+    let result = (await db.query(query)).rows[0]
+
+    return result.is_admin
   }
 }

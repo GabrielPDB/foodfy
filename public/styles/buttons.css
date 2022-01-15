@@ -66,6 +66,7 @@ button.buttonShowHide {
 .user-header .action-header button,
 .user-header .action-header a.button,
 .profile-header .action-header button,
-.profile-header .action-header a.button {
+.profile-header .action-header a.button,
+.actions button {
   width: 140px;
 }
