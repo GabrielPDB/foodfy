@@ -7,6 +7,7 @@ const chefs = require('./chefs')
 const site = require('./site')
 const users = require('./users')
 const profile = require('./profile')
+const session = require('./session')
 
 /* SITE */
 
@@ -15,6 +16,7 @@ routes.get('/', (req, res) => {
 })
 
 routes.use(site)
+routes.use(session)
 
 /* ADMIN */
 

@@ -6,14 +6,18 @@
   }
 }
 
+/* MESSAGES */
+
 .messages {
+  position: absolute;
+  top: 0;
   display: flex;
   justify-content: center;
   padding: 16px;
   width: 100%;
   color: white;
   opacity: 1;
-  animation: hidemessage 400ms 5s ease-out forwards;
+  animation: hidemessage 400ms 3s ease-out forwards;
 }
 
 .messages.error {
@@ -21,5 +25,18 @@
 }
 
 .messages.success {
+  background-color: #3ce73c;
+}
+
+/* MESSAGES LOGIN */
+
+.messagesLogin {
+}
+
+.messagesLogin.error {
+  background-color: #e74c3c;
+}
+
+.messagesLogin.success {
   background-color: #3ce73c;
 }

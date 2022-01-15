@@ -1,0 +1,16 @@
+{% extends 'admin/layout.njk' %}
+{% block content %}
+  <section class="profile container">
+    <div class="profile-header">
+      <div class="action-header">
+        <h2>Bem vindo {{ user.name }}</h2>
+        <div class="buttons">
+          <button type="submit" form="profileForm" class="buttonConfirm">Salvar</button>
+        </div>
+      </div>
+    </div>
+    <form action="/admin/profile?_method=PUT" method="post" id="profileForm" class="adminForm profileForm">
+      {% include 'admin/profile/fields.njk' %}
+    </form>
+  </section>
+{% endblock content %}

@@ -13,7 +13,8 @@ button.buttonDelete {
   background: #dc4747;
 }
 
-button.buttonCancel {
+button.buttonCancel,
+a.button.buttonCancel {
   background: #8a8a8a;
 }
 
@@ -60,4 +61,11 @@ button.buttonShowHide {
   text-decoration: none !important;
   text-align: center;
   padding: 0;
+}
+
+.user-header .action-header button,
+.user-header .action-header a.button,
+.profile-header .action-header button,
+.profile-header .action-header a.button {
+  width: 140px;
 }

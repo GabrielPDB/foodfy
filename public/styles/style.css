@@ -61,6 +61,10 @@ header.headerSite a {
   text-decoration: none;
 }
 
+header.headerSite a i {
+  color: #555;
+}
+
 header.headerSite .link.active a {
   font-weight: bold;
 }
@@ -91,7 +95,7 @@ header.headerAdmin {
 }
 
 header.headerAdmin ~ section {
-  margin-top: 15px;
+  margin-top: 50px;
 }
 
 header.headerAdmin a {
