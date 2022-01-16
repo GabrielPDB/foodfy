@@ -71,6 +71,7 @@ async function putLoggedUser(req, res, next) {
     console.error(error)
   }
 }
+
 async function put(req, res, next) {
   try {
     if (!isAllFieldsFilled(req.body)) {

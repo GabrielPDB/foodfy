@@ -12,7 +12,9 @@ routes.post('/login', SessionValidator.login, SessionController.login)
 routes.get('/logout', SessionController.logout)
 
 /* FORGOT / RESET */
-routes.get('/forgot', SessionController.forgot)
-routes.get('/reset', SessionController.reset)
+routes.get('/forgot', SessionController.forgotForm)
+routes.post('/forgot', SessionValidator.forgot, SessionController.forgot)
+routes.get('/reset', SessionController.resetForm)
+routes.post('/reset', SessionValidator.reset, SessionController.reset)
 
 module.exports = routes

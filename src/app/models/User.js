@@ -77,13 +77,34 @@ module.exports = {
       return results.rows[0].id
     } catch (error) {}
   },
-  async update(user) {
+  async update(id, fields) {
+    try {
+      let query = `UPDATE users SET`
+
+      Object.keys(fields).map((key, index, array) => {
+        if (index + 1 < array.length) {
+          query = `${query}
+          ${key} = '${fields[key]}',`
+        } else {
+          // last iteration
+          query = `${query}
+            ${key} = '${fields[key]}'
+            WHERE id = ${id}
+          `
+        }
+      })
+
+      return await db.query(query)
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  async updateUserToken(user) {
     try {
       const query = `
         UPDATE users SET
-          name = '${user.name}',
-          email = '${user.email}',
-          is_admin = ${user.is_admin}
+          reset_token = '${user.reset_token}',
+          reset_token_expires = '${user.reset_token_expires}'
         WHERE id = ${user.id}
       `
       return await db.query(query)

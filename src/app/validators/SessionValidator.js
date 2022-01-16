@@ -48,6 +48,78 @@ async function login(req, res, next) {
   }
 }
 
+async function forgot(req, res, next) {
+  try {
+    const { email } = req.body
+
+    let user = await User.findByEmail(email)
+
+    if (!user) {
+      return res.render('session/forgot', {
+        user: req.body,
+        error: 'Email não cadastrado!'
+      })
+    }
+
+    req.user = user
+
+    next()
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+async function reset(req, res, next) {
+  try {
+    const { email, password, passwordRepeat, token } = req.body
+
+    const user = await User.findByEmail(email)
+
+    if (!user) {
+      return res.render('session/reset', {
+        user: req.body,
+        token,
+        error: 'Usuário não encontrado!'
+      })
+    }
+
+    if (password != passwordRepeat) {
+      return res.render('session/reset', {
+        user: req.body,
+        token,
+        error: 'A senha e a repetição estão incorretas'
+      })
+    }
+
+    if (token != user.reset_token)
+      return res.render('session/reset', {
+        user: req.body,
+        token,
+        error: 'Token inválido! Solicite uma nova recuperação de senha'
+      })
+
+    let now = new Date()
+    now = now.setHours(now.getHours())
+
+    if (now > user.reset_token_expires) {
+      return res.render('session/reset', {
+        user: req.body,
+        token,
+        error:
+          'Token expirado! Por favor, solicite uma nova recuperação de senha'
+      })
+    }
+
+    req.user = user
+
+    next()
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 module.exports = {
-  login
+  login,
+  forgot,
+  reset
 }

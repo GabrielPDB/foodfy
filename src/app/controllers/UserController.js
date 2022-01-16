@@ -37,6 +37,9 @@ module.exports = {
         <p>Aqui estão seus dados para login</p>
         <p>Email: <strong>${user.email}</strong></p>
         <p>Senha: <strong>${password}</strong></p>
+        <p>
+          <a href="localhost:3000/login">Clique aqui</a> para fazer login
+        </p>
       `
       })
 
@@ -57,7 +60,11 @@ module.exports = {
       user.is_admin = false
     }
 
-    await User.update(user)
+    await User.update(user.id, {
+      name: user.name,
+      email: user.emal,
+      is_admin: user.is_admin
+    })
 
     return res.redirect('/admin/users')
   },

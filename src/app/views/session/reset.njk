@@ -2,7 +2,7 @@
 {% block content %}
   <section class="loginContainer">
     <h2>Nova Senha</h2>
-    <form action="#" class="adminForm loginForm">
+    <form action="/reset" method="POST" class="adminForm loginForm">
       <div class="formItem">
         <h5>Email</h5>
         <input type="email" name="email" value="{{ user.email }}" placeholder="Digite seu email" value="{{ user.email }}" {% if error %} class="inputError" {% endif %}/>
@@ -15,6 +15,7 @@
         <h5>Repetir senha</h5>
         <input type="password" name="passwordRepeat" placeholder="Repita a nova senha" {% if error %} class="inputError" {% endif %}/>
       </div>
+      <input type="hidden" name="token" value="{{ token }}"/>
       <div class="actions">
         <span></span>
         <button type="submit" class="buttonConfirm">Nova Senha</button>

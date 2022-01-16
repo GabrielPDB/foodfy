@@ -2,7 +2,7 @@
 {% block content %}
   <section class="loginContainer">
     <h2>Esqueceu a senha?</h2>
-    <form action="#" class="adminForm loginForm">
+    <form action="/forgot" method="POST" class="adminForm loginForm">
       <div class="formItem">
         <h5>Email</h5>
         <input type="email" name="email" value="{{ user.email }}" placeholder="Digite seu email para recuperar sua senha" value="{{ user.email }}" {% if error %} class="inputError" {% endif %}/>
