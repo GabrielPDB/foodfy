@@ -14,7 +14,7 @@ module.exports = {
       const values = [filename, path]
 
       const results = await db.query(query, values)
-      return results
+      return results.rows[0].id
     } catch (err) {
       console.error(err)
     }
@@ -31,7 +31,7 @@ module.exports = {
       const values = [recipeId, fileId]
 
       const results = await db.query(query, values)
-      return results
+      return results.rows[0].id
     } catch (err) {
       console.error(err)
     }

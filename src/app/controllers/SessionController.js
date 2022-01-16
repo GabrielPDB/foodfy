@@ -47,7 +47,7 @@ module.exports = {
       })
 
       return res.render('session/forgot', {
-        success: 'Verifique seu email para resetar sua senha!'
+        success: 'Verifique seu email para redefinir sua senha!'
       })
     } catch (error) {
       console.error(error)

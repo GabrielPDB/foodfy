@@ -31,21 +31,25 @@ module.exports = {
     return res.render('admin/recipes/create', { chefs })
   },
   async show(req, res) {
-    const { id } = req.params
+    try {
+      const { id } = req.params
 
-    let results = await Recipe.find(id)
-    const recipe = results.rows[0]
+      let results = await Recipe.find(id)
+      const recipe = results.rows[0]
 
-    results = await Recipe.getRecipeFiles(recipe.id)
-    const files = results.rows.map(file => ({
-      ...file,
-      src: `${req.protocol}://${req.headers.host}${file.path.replace(
-        'public',
-        ''
-      )}`
-    }))
+      results = await Recipe.getRecipeFiles(recipe.id)
+      const files = results.rows.map(file => ({
+        ...file,
+        src: `${req.protocol}://${req.headers.host}${file.path.replace(
+          'public',
+          ''
+        )}`
+      }))
 
-    return res.render('admin/recipes/show', { recipe, files })
+      return res.render('admin/recipes/show', { recipe, files })
+    } catch (error) {
+      console.error(error)
+    }
   },
   async edit(req, res) {
     const { id } = req.params
@@ -65,41 +69,44 @@ module.exports = {
     return res.render('admin/recipes/edit', { recipe, chefs, files })
   },
   async post(req, res) {
-    const keys = Object.keys(req.body)
+    try {
+      const keys = Object.keys(req.body)
 
-    for (key of keys) {
-      if (req.body[key] == '') {
-        if (!req.body['information'] == '') {
-          return res.send('Please, fill all fields')
+      for (key of keys) {
+        if (req.body[key] == '') {
+          if (!req.body['information'] == '') {
+            return res.send('Please, fill all fields')
+          }
         }
       }
+
+      if (req.files.length == 0) {
+        return res.send('Please, send at least one image')
+      }
+
+      req.body.ingredients = req.body.ingredients.map(
+        ingredient => `"${ingredient}"`
+      )
+      req.body.preparation = req.body.preparation.map(
+        preparation => `"${preparation}"`
+      )
+
+      req.body.user_id = req.session.userId
+
+      let recipeId = await Recipe.create(req.body)
+
+      const newFilesPromise = req.files.map(async file => {
+        const fileId = await File.create(file)
+
+        return await File.insertRecipeFile(fileId, recipeId)
+      })
+
+      await Promise.all(newFilesPromise)
+
+      return res.redirect(`/admin/recipes/${recipeId}`)
+    } catch (error) {
+      console.error(error)
     }
-
-    if (req.files.length == 0) {
-      return res.send('Please, send at least one image')
-    }
-
-    req.body.ingredients = req.body.ingredients.map(
-      ingredient => `"${ingredient}"`
-    )
-    req.body.preparation = req.body.preparation.map(
-      preparation => `"${preparation}"`
-    )
-
-    let results = await Recipe.create(req.body)
-    const recipeId = results.rows[0].id
-
-    const newFilesPromise = req.files.map(file => {
-      results = File.create(file)
-      const fileId = results.rows[0].id
-
-      results = File.insertRecipeFile(fileId, recipeId)
-      return results.rows[0].id
-    })
-
-    await Promise.all(newFilesPromise)
-
-    return res.redirect(`/admin/recipes/${recipeId}`)
   },
   async put(req, res) {
     const keys = Object.keys(req.body)
@@ -110,9 +117,13 @@ module.exports = {
         }
       }
     }
-
+    console.log(req.files)
     if (req.files.length != 0) {
-      const newFilesPromise = req.files.map(file => File.create({ ...file }))
+      const newFilesPromise = req.files.map(async file => {
+        const fileId = await File.create(file)
+
+        return await File.insertRecipeFile(fileId, req.body.id)
+      })
 
       await Promise.all(newFilesPromise)
     }

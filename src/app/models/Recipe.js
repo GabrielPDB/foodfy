@@ -25,14 +25,14 @@ module.exports = {
         ingredients,
         preparation,
         information
-      ) VALUES ($1,1, $2, '{${data.ingredients}}', '{${data.preparation}}', $3)
+      ) VALUES ($1,${data.user_id}, $2, '{${data.ingredients}}', '{${data.preparation}}', $3)
       RETURNING id
     `
 
       const values = [data.chef_id, data.title, data.information]
 
       const results = await db.query(query, values)
-      return results
+      return results.rows[0].id
     } catch (error) {
       console.error(error)
     }

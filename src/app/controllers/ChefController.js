@@ -85,7 +85,7 @@ module.exports = {
 
     req.body.created_at = date(Date.now()).iso
 
-    const fileId = (await File.create(req.files[0])).rows[0].id
+    const fileId = await File.create(req.files[0])
 
     req.body.file_id = fileId
 
