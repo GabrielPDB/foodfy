@@ -117,7 +117,6 @@ module.exports = {
         }
       }
     }
-    console.log(req.files)
     if (req.files.length != 0) {
       const newFilesPromise = req.files.map(async file => {
         const fileId = await File.create(file)

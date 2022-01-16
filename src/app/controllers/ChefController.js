@@ -106,7 +106,7 @@ module.exports = {
       return res.send('Please, send at least one image')
     }
 
-    const fileId = (await File.create(req.files[0])).rows[0].id
+    const fileId = await File.create(req.files[0])
 
     req.body.file_id = fileId
 

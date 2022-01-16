@@ -166,7 +166,7 @@ const ImagesUpload = {
     const { files: fileList } = input
 
     if (fileList.length > limit) {
-      alert(`Envie no máximo ${limit} imagens`)
+      alert(`Limite de imagens: ${limit}`)
       event.preventDefault()
       return true
     }
@@ -210,7 +210,7 @@ const ImagesUpload = {
   },
   removePhoto(event) {
     const photoDiv = event.target.parentNode
-    const photosArray = Array.from(ImagesUpload.preview.children)
+    const photosArray = Array.from(ImagesUpload.files)
     const index = photosArray.indexOf(photoDiv)
 
     ImagesUpload.files.splice(index, 1)

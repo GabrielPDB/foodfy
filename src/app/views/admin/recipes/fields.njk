@@ -23,7 +23,6 @@
             <i class="material-icons" onclick="ImagesUpload.removeOldPhoto(event)">close</i>
           </div>
         {% endfor %}
-        <input type="hidden" name="removed_files"/>
       {% endif %}
     </div>
   </div>
@@ -67,3 +66,4 @@
   <h5>Informações adicionais</h5>
   <textarea name="information" cols="30" rows="10">{{ recipe.information }}</textarea>
 </div>
+<input type="hidden" name="removed_files"/>
