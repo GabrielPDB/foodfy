@@ -33,7 +33,7 @@ header {
 
 header .container {
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr 0.3fr;
+  grid-template-columns: 1fr 1fr 2fr 0.7fr;
   align-items: center;
   padding: 1.875rem 0;
 }
@@ -98,15 +98,38 @@ header.headerAdmin ~ section {
   margin-top: 50px;
 }
 
-header.headerAdmin a {
+header.headerAdmin a,
+header.headerAdmin .admin button {
   color: #999999;
   font-size: 1rem;
   text-decoration: none;
   font-weight: bold;
+  background: none;
 }
 
 header.headerAdmin .link.active a {
   color: white;
+}
+
+header.headerAdmin .admin {
+  position: relative;
+}
+
+header.headerAdmin .admin .adminMenu {
+  display: none;
+}
+
+header.headerAdmin .admin:hover .adminMenu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+header.headerAdmin .admin:hover button.menuButton {
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* ACTION HEADER */
