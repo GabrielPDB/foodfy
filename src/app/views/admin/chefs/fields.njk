@@ -1,6 +1,6 @@
 <div class="formItem">
   <h5>Nome</h5>
-  <input type="text" name="name" value="{{ chef.name }}"/>
+  <input type="text" name="name" value="{{ chef.name }}" {% if error %} class="inputError" {% endif %}/>
 </div>
 <div class="formItem">
   <h5>Avatar</h5>
@@ -13,7 +13,7 @@
         multiple
         accept="image/*"
         onchange="ImagesUpload.handleChefFileInput(event)"/>
-      <i class="material-icons">add</i>
+      <i class="material-icons {% if error %} inputError{% endif %}">add</i>
     </div>
     <div class="images-preview" {% if files %} style="position:absolute" {% endif %}>
       {% if files %}

@@ -1,10 +1,10 @@
 <div class="formItem">
   <h5>Nome</h5>
-  <input type="text" name="name" value="{{ user.name }}" placeholder="Digite o nome completo" value="{{ user.name }}"/>
+  <input type="text" name="name" value="{{ user.name }}" placeholder="Digite o nome completo" value="{{ user.name }}" {% if error %} class="inputError" {% endif %}/>
 </div>
 <div class="formItem">
   <h5>Email</h5>
-  <input type="email" name="email" value="{{ user.email }}" placeholder="Digite o email" value="{{ user.email }}"/>
+  <input type="email" name="email" value="{{ user.email }}" placeholder="Digite o email" value="{{ user.email }}" {% if error %} class="inputError" {% endif %}/>
 </div>
 <div class="formItem toggleAdmin">
   <input type="checkbox" name="is_admin" {% if user.is_admin %} checked {% endif %}/>

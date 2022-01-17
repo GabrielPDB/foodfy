@@ -115,50 +115,68 @@ module.exports = {
     }
   },
   async put(req, res) {
-    const keys = Object.keys(req.body)
-    for (key of keys) {
-      if (req.body[key] == '' && key != 'removed_files') {
-        if (!req.body['information'] == '') {
-          return res.send('Please, fill all fields')
+    try {
+      const keys = Object.keys(req.body)
+      for (key of keys) {
+        if (req.body[key] == '' && key != 'removed_files') {
+          if (!req.body['information'] == '') {
+            const chefs = (await Recipe.getChefsToSelectOptions()).rows
+            let files = (await Recipe.getRecipeFiles(req.body.id)).rows
+            files = files.map(file => ({
+              ...file,
+              src: `${req.protocol}://${req.headers.host}${file.path.replace(
+                'public',
+                ''
+              )}`
+            }))
+            return res.render('admin/recipes/edit', {
+              recipe: req.body,
+              chefs,
+              files,
+              error: 'Por favor, preencha todos os campos'
+            })
+          }
         }
       }
-    }
-    if (req.files.length != 0) {
-      const newFilesPromise = req.files.map(async file => {
-        const fileId = await File.create(file)
+      if (req.files.length != 0) {
+        const newFilesPromise = req.files.map(async file => {
+          const fileId = await File.create(file)
 
-        return await File.insertRecipeFile(fileId, req.body.id)
+          return await File.insertRecipeFile(fileId, req.body.id)
+        })
+
+        await Promise.all(newFilesPromise)
+      }
+
+      if (req.body.removed_files) {
+        const removedFiles = req.body.removed_files.split(',')
+        const lastIndex = removedFiles.length - 1
+        removedFiles.splice(lastIndex, 1)
+
+        let removedFilesPromise = removedFiles.map(async id =>
+          File.deleteRecipeFileById(id)
+        )
+
+        await Promise.all(removedFilesPromise)
+
+        removedFilesPromise = removedFiles.map(id => File.delete(id))
+
+        await Promise.all(removedFilesPromise)
+      }
+
+      req.body.ingredients = req.body.ingredients.map(ingredient => {
+        return `"${ingredient}"`
+      })
+      req.body.preparation = req.body.preparation.map(preparation => {
+        return `"${preparation}"`
       })
 
-      await Promise.all(newFilesPromise)
+      await Recipe.update(req.body)
+
+      return res.redirect(`/admin/recipes/${req.body.id}`)
+    } catch (error) {
+      console.error(error)
     }
-
-    if (req.body.removed_files) {
-      const removedFiles = req.body.removed_files.split(',')
-      const lastIndex = removedFiles.length - 1
-      removedFiles.splice(lastIndex, 1)
-
-      let removedFilesPromise = removedFiles.map(async id =>
-        File.deleteRecipeFileById(id)
-      )
-
-      await Promise.all(removedFilesPromise)
-
-      removedFilesPromise = removedFiles.map(id => File.delete(id))
-
-      await Promise.all(removedFilesPromise)
-    }
-
-    req.body.ingredients = req.body.ingredients.map(ingredient => {
-      return `"${ingredient}"`
-    })
-    req.body.preparation = req.body.preparation.map(preparation => {
-      return `"${preparation}"`
-    })
-
-    await Recipe.update(req.body)
-
-    return res.redirect(`/admin/recipes/${req.body.id}`)
   },
   async delete(req, res) {
     const { id } = req.body

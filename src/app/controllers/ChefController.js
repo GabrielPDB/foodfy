@@ -98,12 +98,28 @@ module.exports = {
 
     for (key of keys) {
       if (req.body[key] == '' && key != 'removed_files') {
-        return res.send('Please, fill all fields')
+        let files = (await Chef.getChefFile(req.body.id)).rows
+        files = files.map(file => ({
+          ...file,
+          src: `${req.protocol}://${req.headers.host}${file.path.replace(
+            'public',
+            ''
+          )}`
+        }))
+
+        return res.render('admin/chefs/edit', {
+          chef: req.body,
+          files,
+          error: 'Preencha todos os campos'
+        })
       }
     }
 
     if (req.files.length == 0) {
-      return res.send('Please, send at least one image')
+      return res.render('admin/chefs/edit', {
+        chef: req.body,
+        error: 'Você precisa escolher pelo menos uma imagem'
+      })
     }
 
     const fileId = await File.create(req.files[0])

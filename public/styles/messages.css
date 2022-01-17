@@ -55,3 +55,17 @@
 .messagesLogin.success {
   background-color: #01b12a;
 }
+
+.inputError,
+form.adminForm .images-upload i.material-icons.inputError {
+  animation: inputError 7s;
+}
+
+@keyframes inputError {
+  0% {
+    border: 1px solid red;
+  }
+  100% {
+    border: 1px solid #dddddd;
+  }
+}
