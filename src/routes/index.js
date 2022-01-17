@@ -31,4 +31,10 @@ routes.use('/admin/chefs', onlyUsers, chefs)
 routes.use('/admin/users', onlyUsers, users)
 routes.use('/admin/profile', onlyUsers, profile)
 
+/* ERRORS */
+
+routes.use((req, res, next) => {
+  res.status(404).render('errors/404', { error: '404 not found' })
+})
+
 module.exports = routes

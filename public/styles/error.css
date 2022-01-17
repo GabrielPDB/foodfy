@@ -1,0 +1,31 @@
+section.container.errorPage {
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+section.container.errorPage .first {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+section.container.errorPage .first h1 {
+  font-size: 8rem;
+}
+
+section.container.errorPage .first p {
+  width: 20rem;
+  font-size: 2rem;
+}
+
+section.container.errorPage .second {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}

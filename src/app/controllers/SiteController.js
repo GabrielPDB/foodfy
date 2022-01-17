@@ -32,6 +32,7 @@ module.exports = {
 
     if (search == '' || !search) {
       recipes = (await Recipe.all()).rows
+
       const newRecipes = recipes.map(async recipe => {
         let result = (await Recipe.getFirstImageOfRecipe(recipe.id)).rows[0]
 
@@ -46,6 +47,13 @@ module.exports = {
       })
 
       await Promise.all(newRecipes)
+
+      if (recipes.length == 0) {
+        return res.render('site/recipes', {
+          search,
+          error: 'Nenhuma receita encontrada'
+        })
+      }
 
       return res.render('site/recipes', { recipes, search })
     } else {
@@ -64,6 +72,14 @@ module.exports = {
       })
 
       await Promise.all(newRecipes)
+
+      if (recipes.length == 0) {
+        return res.render('site/recipes', {
+          search,
+          error: 'Nenhuma receita encontrada'
+        })
+      }
+
       return res.render('site/recipes', { recipes, search })
     }
   },

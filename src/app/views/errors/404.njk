@@ -1,0 +1,18 @@
+{% extends "errors/layout.njk" %}
+{% block content %}
+  <section class="container errorPage">
+    <div class="first">
+      <h1>Ops!</h1>
+      <p>A página que você está procurando não foi encontrada.</p>
+    </div>
+    <div class="second">
+      <p>Verifique a URL, ou volte para a home</p>
+      <i class="material-icons">
+        arrow_downward
+      </i>
+      <a href="/">
+        <img src="/assets/logo.png" alt="Logo Foodfy">
+      </a>
+    </div>
+  </section>
+{% endblock content %}
