@@ -33,6 +33,7 @@ module.exports = {
   async show(req, res) {
     try {
       const { id } = req.params
+      const { error } = req.body
 
       let results = await Recipe.find(id)
       const recipe = results.rows[0]
@@ -46,13 +47,14 @@ module.exports = {
         )}`
       }))
 
-      return res.render('admin/recipes/show', { recipe, files })
+      return res.render('admin/recipes/show', { recipe, files, error })
     } catch (error) {
       console.error(error)
     }
   },
   async edit(req, res) {
     const { id } = req.params
+    const { error } = req.body
 
     const results = await Recipe.find(id)
     const recipe = results.rows[0]
@@ -65,6 +67,10 @@ module.exports = {
         ''
       )}`
     }))
+
+    if (error) {
+      return res.render('admin/recipes/show', { recipe, files, error })
+    }
 
     return res.render('admin/recipes/edit', { recipe, chefs, files })
   },

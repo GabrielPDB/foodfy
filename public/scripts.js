@@ -131,7 +131,6 @@ const ImagesUpload = {
         ImagesUpload.preview.appendChild(div)
       }
     })
-
     ImagesUpload.input.files = ImagesUpload.getAllFiles()
   },
   handleChefFileInput(event) {

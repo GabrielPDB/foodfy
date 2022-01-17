@@ -3,7 +3,11 @@
   <section class="profile container">
     <div class="profile-header">
       <div class="action-header">
-        <h2>Bem vindo {{ user.name }}</h2>
+        <h2>Bem vindo {{ user.name }}
+          {% if user.is_admin %}
+            <i class="material-icons adminProfile">admin_panel_settings</i>
+          {% endif %}
+        </h2>
         <div class="buttons">
           <button type="submit" form="profileForm" class="buttonConfirm">Salvar</button>
         </div>

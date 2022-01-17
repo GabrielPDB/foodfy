@@ -62,7 +62,7 @@ module.exports = {
 
     await User.update(user.id, {
       name: user.name,
-      email: user.emal,
+      email: user.email,
       is_admin: user.is_admin
     })
 

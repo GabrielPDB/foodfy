@@ -146,6 +146,16 @@ header.headerAdmin .admin:hover button.menuButton {
   gap: 10px;
 }
 
+.action-header h2 {
+  display: flex;
+  gap: 1rem;
+}
+
+.action-header h2 .adminProfile {
+  color: #1da1f2;
+  align-self: center;
+}
+
 /* BANNER */
 
 .banner {

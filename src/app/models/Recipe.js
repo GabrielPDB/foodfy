@@ -134,5 +134,17 @@ module.exports = {
     } catch (error) {
       console.error(error)
     }
+  },
+  async getUserIdOfRecipe(recipe_id) {
+    try {
+      let query = `
+      SELECT user_id FROM recipes WHERE id = ${recipe_id}
+    `
+      let results = await db.query(query)
+
+      return results.rows[0].user_id
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
