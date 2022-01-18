@@ -103,7 +103,7 @@ module.exports = {
     const chefs = (await Chef.all()).rows
 
     const newChefsPromise = chefs.map(async chef => {
-      let result = (await Chef.getChefFile(chef.id)).rows[0]
+      let result = await Chef.getChefFile(chef.id)
 
       chef.image = {
         ...result,
