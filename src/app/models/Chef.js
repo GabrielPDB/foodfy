@@ -63,16 +63,15 @@ module.exports = {
       console.error(error)
     }
   },
-  getChefFile(chef_id) {
+  async getChefFile(chef_id) {
     try {
-      return db.query(
-        `
-          SELECT * FROM files
-          LEFT JOIN chefs ON (files.id = chefs.file_id)
-          WHERE chefs.id = $1
-        `,
-        [chef_id]
-      )
+      let query = `
+      SELECT files.id AS file_id, files.name, files.path FROM files
+      LEFT JOIN chefs ON (files.id = chefs.file_id)
+      WHERE chefs.id = ${chef_id}
+    `
+      let results = (await db.query(query)).rows[0]
+      return results
     } catch (error) {
       console.error(error)
     }

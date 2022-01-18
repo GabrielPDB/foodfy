@@ -4,6 +4,8 @@ function setPageFocusOnHeader() {
       document.querySelectorAll('.link')[0].classList.toggle('active')
     } else if (document.location.pathname.indexOf('chefs') != -1) {
       document.querySelectorAll('.link')[1].classList.toggle('active')
+    } else if (document.location.pathname.indexOf('users') != -1) {
+      document.querySelectorAll('.link')[2].classList.toggle('active')
     }
   } else {
     if (document.location.pathname.indexOf('about') != -1) {
@@ -225,7 +227,6 @@ const ImagesUpload = {
   },
   removeOldPhoto(event) {
     const photoDiv = event.target.parentNode
-
     if (photoDiv.id) {
       const removedFiles = document.querySelector('input[name="removed_files"]')
       if (removedFiles) {

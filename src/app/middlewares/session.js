@@ -23,9 +23,9 @@ async function onlyAdmin(req, res, next) {
   const isAdmin = await User.isAdmin(req.session.userId)
 
   if (!isAdmin) {
-    let users = await User.getAllUsersToList()
-    return res.render('admin/users/list', {
-      users,
+    let user = await User.findById(req.session.userId)
+    return res.render('admin/profile/index', {
+      user,
       error: 'Você não tem permissão!'
     })
   }

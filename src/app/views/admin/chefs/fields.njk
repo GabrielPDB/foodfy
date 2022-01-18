@@ -15,14 +15,12 @@
         onchange="ImagesUpload.handleChefFileInput(event)"/>
       <i class="material-icons {% if error %} inputError{% endif %}">add</i>
     </div>
-    <div class="images-preview" {% if files %} style="position:absolute" {% endif %}>
-      {% if files %}
-        {% for image in files %}
-          <div class="photo" id="{{ image.file_id }}">
-            <img src="{{ image.src }}" alt="{{ image.name }}"/>
-            <i class="material-icons" onclick="ImagesUpload.removeOldPhoto(event)">close</i>
-          </div>
-        {% endfor %}
+    <div class="images-preview" {% if file %} style="position:absolute" {% endif %}>
+      {% if file %}
+        <div class="photo" id="{{ file.file_id }}">
+          <img src="{{ file.src }}" alt="{{ file.name }}"/>
+          <i class="material-icons" onclick="ImagesUpload.removeOldPhoto(event)">close</i>
+        </div>
         <input type="hidden" name="removed_files"/>
       {% endif %}
     </div>

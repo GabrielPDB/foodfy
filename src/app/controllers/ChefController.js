@@ -8,7 +8,7 @@ module.exports = {
     const chefs = (await Chef.all()).rows
 
     const newChefsPromise = chefs.map(async chef => {
-      let result = (await Chef.getChefFile(chef.id)).rows[0]
+      let result = await Chef.getChefFile(chef.id)
 
       chef.image = {
         ...result,
@@ -21,6 +21,7 @@ module.exports = {
     })
 
     await Promise.all(newChefsPromise)
+
     return res.render('admin/chefs/index', { chefs })
   },
   async create(req, res) {
@@ -46,7 +47,7 @@ module.exports = {
 
     await Promise.all(newRecipes)
 
-    const file = (await Chef.getChefFile(id)).rows[0]
+    const file = await Chef.getChefFile(id)
 
     file.src = `${req.protocol}://${req.headers.host}${file.path.replace(
       'public',
@@ -60,15 +61,11 @@ module.exports = {
 
     const chef = (await Chef.find(id)).rows[0]
 
-    let files = (await Chef.getChefFile(id)).rows
-    files = files.map(file => ({
-      ...file,
-      src: `${req.protocol}://${req.headers.host}${file.path.replace(
-        'public',
-        ''
-      )}`
-    }))
-    return res.render('admin/chefs/edit', { chef, files })
+    const chefFile = await Chef.getChefFile(chef.id)
+    chefFile.src = `${req.protocol}://${
+      req.headers.host
+    }${chefFile.path.replace('public', '')}`
+    return res.render('admin/chefs/edit', { chef, file: chefFile })
   },
   async post(req, res) {
     const keys = Object.keys(req.body)
@@ -94,68 +91,40 @@ module.exports = {
     return res.redirect(`/admin/chefs/${chefId}`)
   },
   async put(req, res) {
-    const keys = Object.keys(req.body)
+    try {
+      let chef = req.body
+      chef.id = Number(chef.id)
 
-    for (key of keys) {
-      if (req.body[key] == '' && key != 'removed_files') {
-        let files = (await Chef.getChefFile(req.body.id)).rows
-        files = files.map(file => ({
-          ...file,
-          src: `${req.protocol}://${req.headers.host}${file.path.replace(
-            'public',
-            ''
-          )}`
-        }))
-
-        return res.render('admin/chefs/edit', {
-          chef: req.body,
-          files,
-          error: 'Preencha todos os campos'
-        })
+      if (req.files.length != 0) {
+        chef.file_id = await File.create(req.files[0])
+      } else {
+        chef.file_id = (await Chef.getChefFile(chef.id)).file_id
       }
+
+      await Chef.update(req.body)
+
+      if (req.body.removed_files) {
+        const removedFiles = req.body.removed_files.split(',')
+        const lastIndex = removedFiles.length - 1
+        removedFiles.splice(lastIndex, 1)
+
+        const removedFilesPromise = removedFiles.map(id => File.delete(id))
+
+        await Promise.all(removedFilesPromise)
+      }
+
+      return res.redirect(`/admin/chefs/${req.body.id}`)
+    } catch (error) {
+      console.error(error)
     }
-
-    if (req.files.length == 0) {
-      return res.render('admin/chefs/edit', {
-        chef: req.body,
-        error: 'Você precisa escolher pelo menos uma imagem'
-      })
-    }
-
-    const fileId = await File.create(req.files[0])
-
-    req.body.file_id = fileId
-
-    req.body.id = Number(req.body.id)
-
-    await Chef.update(req.body)
-
-    if (req.body.removed_files) {
-      const removedFiles = req.body.removed_files.split(',')
-      const lastIndex = removedFiles.length - 1
-      removedFiles.splice(lastIndex, 1)
-
-      const removedFilesPromise = removedFiles.map(id => File.delete(id))
-
-      await Promise.all(removedFilesPromise)
-    }
-
-    return res.redirect(`/admin/chefs/${req.body.id}`)
   },
   async delete(req, res) {
-    const recipes = (await Chef.getRecipesOfChef(req.body.id)).rows
-    const fileOfChefId = (await Chef.getChefFile(req.body.id)).rows[0].file_id
+    const fileOfChefId = await Chef.getChefFile(req.body.id)
 
-    if (recipes.length > 0) {
-      return res.send(
-        `Esse chef tem receitas cadastradas. Não é possível excluí-lo`
-      )
-    } else {
-      await Chef.delete(req.body.id)
+    await Chef.delete(req.body.id)
 
-      await File.delete(fileOfChefId)
+    await File.delete(fileOfChefId)
 
-      return res.redirect(`/admin/chefs`)
-    }
+    return res.redirect(`/admin/chefs`)
   }
 }
